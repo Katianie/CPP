@@ -1,0 +1,15 @@
+
+AceLibrary/.vs/AceLibrary/v14/.suo
+AceLibrary/AceLibrary.sdf
+*.sln
+*.db
+*.zip
+*.vcxproj
+*.user
+*.filters
+*.log
+*.obj
+*.idb
+*.pdb
+*.lastbuildstate
+*.tlog

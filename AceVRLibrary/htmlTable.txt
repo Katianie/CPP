@@ -1,0 +1,144 @@
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-yw4l">XMMATRIX</th>
+    <th class="tg-yw4l">ConvertSteamVRMatrixToXMMATRIX(const HmdMatrix34_t& matPose)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">bool</th>
+    <th class="tg-yw4l">GetContainsProximitySensor(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">XMMATRIX</th>
+    <th class="tg-yw4l">GetCurrentViewProjectionMatrix(IVRSystem* hmd, const XMMATRIX& projectionMat, const XMMATRIX& eyePose, const XMMATRIX& hmdPose)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">float</th>
+    <th class="tg-yw4l">GetDeviceBatteryPercentage(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">uint64_t</th>
+    <th class="tg-yw4l">GetDeviceClass(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">bool</th>
+    <th class="tg-yw4l">GetDeviceIsCharging(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">bool</th>
+    <th class="tg-yw4l">GetDeviceIsWireless(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">bool</th>
+    <th class="tg-yw4l">GetDeviceProvidesBatteryStatus(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">char*</th>
+    <th class="tg-yw4l">GetFirmwareProgrammingTarget(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">uint64_t</th>
+    <th class="tg-yw4l">GetFirmwareVersion(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">uint64_t</th>
+    <th class="tg-yw4l">GetFPGAVersion(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">bool</th>
+    <th class="tg-yw4l">GetHasCamera(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">uint64_t</th>
+    <th class="tg-yw4l">GetHMDAudioFirmwareVersion(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">uint64_t</th>
+    <th class="tg-yw4l">GetHMDCameraCompatibilityMode(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">uint64_t</th>
+    <th class="tg-yw4l">GetHMDCurrentUniverseId(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">uint64_t</th>
+    <th class="tg-yw4l">GetHMDDisplayBootloaderVersion(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">uint64_t</th>
+    <th class="tg-yw4l">GetHMDDisplayFirmwareVersion(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">float</th>
+    <th class="tg-yw4l">GetHMDDisplayFrequency(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">uint64_t</th>
+    <th class="tg-yw4l">GetHMDDisplayHardwareVersion(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">XMMATRIX</th>
+    <th class="tg-yw4l">GetHMDEyePoseMatrix(IVRSystem* hmd, Hmd_Eye nEye);</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">XMMATRIX</th>
+    <th class="tg-yw4l">GetHMDEyeProjectionMatrix(IVRSystem* hmd, Hmd_Eye nEye, float nearClipPlane, float farClipPlane);</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">uint64_t</th>
+    <th class="tg-yw4l">GetHMDPreviousUniverseId(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">float</th>
+    <th class="tg-yw4l">GetHMDSecondsFromVsyncToPhotons(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">float</th>
+    <th class="tg-yw4l">GetHMDUserIpdMeters(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">bool</th>
+    <th class="tg-yw4l">GetIsFirmwareManualUpdate(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">bool</th>
+    <th class="tg-yw4l">GetIsFirmwareUpdateAvailable(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">char*</th>
+    <th class="tg-yw4l">GetManufacturerName(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">char*</th>
+    <th class="tg-yw4l">GetModelNumber(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">char*</th>
+    <th class="tg-yw4l">GetRenderModelName(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">char*</th>
+    <th class="tg-yw4l">GetSerialNumber(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">char*</th>
+    <th class="tg-yw4l">GetTrackingSystemName(IVRSystem* hmd, uint32_t deviceIndex)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">char*</th>
+    <th class="tg-yw4l">SteamVRMatrix34ToString(const HmdMatrix34_t& mat)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">char*</th>
+    <th class="tg-yw4l">SteamVRMatrix44ToString(const HmdMatrix44_t& mat)</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">char*</th>
+    <th class="tg-yw4l">XMMatrixToString(const XMMATRIX& mat)</th>
+  </tr>
+</table>

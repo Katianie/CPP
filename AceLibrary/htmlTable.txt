@@ -1,0 +1,1108 @@
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-yw4l">void*</th>
+    <th class="tg-yw4l">_Aligned_Calloc(size_t size, size_t alignment);</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l">double</th>
+    <th class="tg-yw4l">AbsoluteValue(double num);</th>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">AbsoluteValue(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">AbsoluteValue(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">AllocateAndCopyString(char* strToCopy);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">AllocateAndCopyString(wchar_t* wideStrToCopy);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">ArcCos(double numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">ArcCos(float numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">ArcCos(int numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">ArcCosH(double numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">ArcCosH(float numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">ArcCosH(int numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">ArcSin(double numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">ArcSin(float numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">ArcSin(int numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">ArcSinH(double numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">ArcSinH(float numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">ArcSinH(int numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">ArcTan(double numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">ArcTan(float numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">ArcTan(int numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">ArcTanH(double numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">ArcTanH(float numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">ArcTanH(int numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">ArcTan2(double yInRadians, double xInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">ArcTan2(float yInRadians, float xInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">ArcTan2(int yInRadians, int xInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">CalculateAspectRatio(int newWidth, int newHeight, int originalWidth, int originalHeight, int&amp; outAdjustedWidth, int&amp; outAdjustedHeight);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">LONGLONG</td>
+    <td class="tg-yw4l">CalculateFileSize(char* theFilePath);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">LONGLONG</td>
+    <td class="tg-yw4l">CalculateFileSize(wchar_t* theFilePath);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">CalculateNumLength(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">long</td>
+    <td class="tg-yw4l">CalculateNumLength(long num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">Ceiling(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">Ceiling(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">Ceiling(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char</td>
+    <td class="tg-yw4l">CharAt(char* str, int index);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t</td>
+    <td class="tg-yw4l">CharAt(wchar_t* str, int index);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">ComplementaryErrorFunction(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">ComplementaryErrorFunction(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">ComplementaryErrorFunction(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">ConcatenateStrings(int numStrings, char** stringArray);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">ConcatenateStrings(int numStrings, wchar_t** stringArray);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">ConcatenateStrings(vector&lt;char*&gt; stringVectorArray);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">ConcatenateStrings(vector&lt;wchar_t*&gt; stringVectorArray);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">Concatenate(int numStrings, ...);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">ConcatenateW(int numWideStrings, ...);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">Contains(char* strToSearch, char* strToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">Contains(wchar_t* strToSearch, wchar_t* strToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">ContainsIgnoreCase(char* strToSearch, char* strToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">ContainsIgnoreCase(wchar_t* strToSearch, wchar_t* strToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">ConvertDoubleToBool(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">ConvertFloatToBool(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">ConvertIntToBool(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">ConvertIntToString(int integerToConvert);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">ConvertIntToWideString(int integerToConvert);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">vector&lt;char*&gt;</td>
+    <td class="tg-yw4l">ConvertStringArrayToStringVectorArray(char** stringArray);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">vector&lt;wchar_t*&gt;</td>
+    <td class="tg-yw4l">ConvertStringArrayToStringVectorArray(wchar_t** stringArray);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">ConvertStringToBool(char* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">ConvertStringToBool(wchar_t* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float*</td>
+    <td class="tg-yw4l">ConvertStringToFloatArray(char* strToConvert, char* delimiter, int&amp; outNumItems);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float*</td>
+    <td class="tg-yw4l">ConvertStringToFloatArray(wchar_t* strToConvert, wchar_t* delimiter, int&amp; outNumItems);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">unsigned int</td>
+    <td class="tg-yw4l">ConvertStringToHex(char* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">unsigned int</td>
+    <td class="tg-yw4l">ConvertStringToHex(wchar_t* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">ConvertStringToOneLine(char* strToConvert);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">ConvertStringToOneLine(wchar_t* strToConvert);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">ConvertStringToOneLineInPlace(char* strToConvert);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">ConvertStringToOneLineInPlace(wchar_t* strToConvert);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">ConvertStringToWCharString(const char* strToConvert);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char**</td>
+    <td class="tg-yw4l">ConvertStringVectorArrayToStringArray(vector&lt;char*&gt; stringVectorArray, int&amp; outStringArrayLength);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t**</td>
+    <td class="tg-yw4l">ConvertStringVectorArrayToStringArray(vector&lt;wchar_t*&gt; stringVectorArray, int&amp; outStringArrayLength);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char</td>
+    <td class="tg-yw4l">ConvertToLowerCase(char character);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t</td>
+    <td class="tg-yw4l">ConvertToLowerCase(wchar_t character);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char</td>
+    <td class="tg-yw4l">ConvertToUpperCase(char character);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t</td>
+    <td class="tg-yw4l">ConvertToUpperCase(wchar_t character);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">ConvertToLowerCase(char* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">ConvertToLowerCase(wchar_t* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">ConvertToLowerCaseInPlace(char* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">ConvertToLowerCaseInPlace(wchar_t* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">ConvertToUpperCase(char* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">ConvertToUpperCase(wchar_t* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">ConvertToUpperCaseInPlace(char* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">ConvertToUpperCaseInPlace(wchar_t* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">Cos(double numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">Cos(float numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">Cos(int numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">CosH(double numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">CosH(float numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">CosH(int numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">CountNumOccurrences(char* strToSearch, char charToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">CountNumOccurrences(wchar_t* strToSearch, wchar_t charToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">CountNumOccurrences(char* strToSearch, char* strToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">CountNumOccurrences(wchar_t* strToSearch, wchar_t* strToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">CubeRoot(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">CubeRoot(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">CubeRoot(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">DegreesToRadians(double degrees);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">DegreesToRadians(float degrees);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">DegreesToRadians(int degrees);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">DoesFileExist(char* fullFilePathWithNameAndExt);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">DoesFileExist(wchar_t* fullFilePathWithNameAndExt);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">ErrorFunction(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">ErrorFunction(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">ErrorFunction(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">Equals(char* strToCompOne, char* strToCompTwo);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">Equals(wchar_t* strToCompOne, wchar_t* strToCompTwo);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">EqualsIgnoreCase(char* strToCompOne, char* strToCompTwo);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">EqualsIgnoreCase(wchar_t* strToCompOne, wchar_t* strToCompTwo);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">EToTheXPower(double power);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">EToTheXPower(float power);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">EToTheXPower(int power);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">EToTheXPowerMinusOne(double power);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">EToTheXPowerMinusOne(float power);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">EToTheXPowerMinusOne(int power);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char</td>
+    <td class="tg-yw4l">FirstChar(char* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t</td>
+    <td class="tg-yw4l">FirstChar(wchar_t* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">Floor(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">Floor(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">Floor(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">GammaFunction(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">GammaFunction(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">GammaFunction(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">GenerateRandomNum(int min, int max);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">GetHResultDescription(HRESULT result);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">GetHResultDescriptionW(HRESULT result);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">GetImageSize(char* fileName, int* outWidth, int* outHeight);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">GetImageSizeW(wchar_t* fileName, int* outWidth, int* outHeight);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">Hypotenuse(double x, double y);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">Hypotenuse(float x, float y);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">Hypotenuse(int x, int y);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">IndexOf(char* strToSearch, char charToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">IndexOf(wchar_t* strToSearch, wchar_t charToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">IndexOf(char* strToSearch, char* strToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">IndexOf(wchar_t* strToSearch, wchar_t* strToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">IndexOfFirstLetter(char* strToSearch);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">IndexOfFirstLetter(wchar_t* strToSearch);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">IndexOfIgnoreCase(char* strToSearch, char charToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">IndexOfIgnoreCase(wchar_t* strToSearch, wchar_t charToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">IndexOfIgnoreCase(char* strToSearch, char* strToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">IndexOfIgnoreCase(wchar_t* strToSearch, wchar_t* strToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">InsertString(char* strToReceive, char* strToInsert, int startIndex);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">InsertString(wchar_t* strToReceive, wchar_t* strToInsert, int startIndex);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">IsAlphabetic(char character);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">IsAlphabetic(wchar_t character);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">IsDigit(char character);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">IsDigit(wchar_t character);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">IsEmpty(char* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">IsEmpty(wchar_t* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">IsNumber(char* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">IsNumber(wchar_t* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">IsPathADevice(const char* path);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">IsPathADevice(const wchar_t* path);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">IsWhitespace(char character);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">IsWhitespace(wchar_t character);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">Largest(double num1, double num2);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">Largest(float num1, float num2);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">Largest(int num1, int num2);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char</td>
+    <td class="tg-yw4l">LastChar(char* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t</td>
+    <td class="tg-yw4l">LastChar(wchar_t* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">LastIndexOf(char* strToSearch, char* strToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">LastIndexOf(wchar_t* strToSearch, wchar_t* strToLookFor);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">LogBaseTen(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">LogBaseTen(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">LogBaseTen(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">LogBaseTwo(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">LogBaseTwo(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">LogBaseTwo(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">Mod(double numerator, double denominator);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">Mod(float numerator, float denominator);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">Mod(int numerator, int denominator);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">MultiplyThenAdd(double multOne, double multTwo, double add);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">MultiplyThenAdd(float multOne, float multTwo, float add);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">MultiplyThenAdd(int multOne, int multTwo, int add);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">NaturalLog(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">NaturalLog(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">NaturalLog(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">NaturalLogGammaFunction(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">NaturalLogGammaFunction(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">NaturalLogGammaFunction(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">NextIndexOf(char* strToSearch, char charToLookFor, int startIndex);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">NextIndexOf(wchar_t* strToSearch, wchar_t charToLookFor, int startIndex);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">NextIndexOf(char* strToSearch, char* strToLookFor, int startIndex);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">NextIndexOf(wchar_t* strToSearch, wchar_t* strToLookFor, int startIndex);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">NumTimesTwoToTheXPower(double num, double power);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">NumTimesTwoToTheXPower(float num, float power);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">NumTimesTwoToTheXPower(int num, int power);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">Power(double base, double exponent);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">Power(float base, float exponent);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">Power(int base, int exponent);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">PositiveDifference(double numOne, double numTwo);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">PositiveDifference(float numOne, float numTwo);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">PositiveDifference(int numOne, int numTwo);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">RadiansToDegrees(double radians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">RadiansToDegrees(float radians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">RadiansToDegrees(int radians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">ReadTextFile(char* filePath, size_t numBytesToRead, size_t maxBufferSize, const char* mode, int seekOffset, int seekOrigin, long* outEndCursorPos);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">ReadTextFileW(wchar_t* filePath, size_t numBytesToRead, size_t maxBufferSize, const wchar_t* mode, int seekOffset, int seekOrigin, long* outEndCursorPos);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">ReadBinaryFile(char* filePath, size_t numBytesToRead, size_t maxBufferSize, const char* mode, int seekOffset, int seekOrigin, long* outEndCursorPos);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">ReadBinaryFileW(wchar_t* filePath, size_t numBytesToRead, size_t maxBufferSize, const wchar_t* mode, int seekOffset, int seekOrigin, long* outEndCursorPos);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">vector&lt;char*&gt;</td>
+    <td class="tg-yw4l">RetrieveFileNames(char* fullFilePath);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">Remainder(double numerator, double denominator);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">Remainder(float numerator, float denominator);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">Remainder(int numerator, int denominator);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">RemainderWithQuadrant(double numerator, double denominator, int* outQuadrant);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">RemainderWithQuadrant(float numerator, float denominator, int* outQuadrant);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">RemainderWithQuadrant(int numerator, int denominator, int* outQuadrant);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">RemoveAllWhitespace(char* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">RemoveAllWhitespace(wchar_t* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">RemoveAllWhitespaceInPlace(char* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">RemoveAllWhitespaceInPlace(wchar_t* str);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">RemoveCharactersFromString(char* strToRemoveFrom, char charToRemove);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">RemoveCharactersFromString(wchar_t* strToRemoveFrom, wchar_t charToRemove);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">RemoveCharactersFromStringInPlace(char* strToRemoveFrom, char charToRemove);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">RemoveCharactersFromStringInPlace(wchar_t* strToRemoveFrom, wchar_t charToRemove);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">RemoveStringFromString(char* strToRemoveFrom, char* strToRemove, bool removeOnlyFirstOccurrence);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">RemoveStringFromString(wchar_t* strToRemoveFrom, wchar_t* strToRemove, bool removeOnlyFirstOccurrence);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">RemoveStringFromStringInPlace(char*&amp; strToRemoveFrom, char* strToRemove, bool removeOnlyFirstOccurrence);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">RemoveStringFromStringInPlace(wchar_t*&amp; strToRemoveFrom, wchar_t* strToRemove, bool removeOnlyFirstOccurrence);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">ReplaceString(char* strToSearch, char* strToLookFor, char* strToReplaceWith, bool removeOnlyFirstOccurrence);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">ReplaceString(wchar_t* strToSearch, wchar_t* strToLookFor, wchar_t* strToReplaceWith, bool removeOnlyFirstOccurrence);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">ReplaceStringInPlace(char*&amp; strToSearch, char* strToLookFor, char* strToReplaceWith, bool removeOnlyFirstOccurrence);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">ReplaceStringInPlace(wchar_t*&amp; strToSearch, wchar_t* strToLookFor, wchar_t* strToReplaceWith, bool removeOnlyFirstOccurrence);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">RetrieveDataBetweenTags(char* fileData, char* startTag, char* endTag);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">RetrieveDataBetweenTags(wchar_t* fileData, wchar_t* startTag, wchar_t* endTag);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">RetrieveDataBetweenTags(char* fileData, int startTagIndex, int endTagIndex);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">RetrieveDataBetweenTags(wchar_t* fileData, int startTagIndex, int endTagIndex);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char**</td>
+    <td class="tg-yw4l">RetrieveDataChunksBetweenTags(char* fileData, char* startTag, char* endTag, int&amp; outFinalBufferSize);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t**</td>
+    <td class="tg-yw4l">RetrieveDataChunksBetweenTags(wchar_t* fileData, wchar_t* startTag, wchar_t* endTag<, int&amp; outFinalBufferSize);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">vector&lt;wchar_t*&gt;</td>
+    <td class="tg-yw4l">RetrieveFileNames(wchar_t* fullFilePath);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">vector&lt;char*&gt;</td>
+    <td class="tg-yw4l">RetrieveFolderNames(char* fullFilePath);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">vector&lt;wchar_t*&gt;</td>
+    <td class="tg-yw4l">RetrieveFolderNames(wchar_t* fullFilePath);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">ReverseString(char* strToReverse);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">ReverseString(wchar_t* strToReverse);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">ReverseStringInPlace(char* strToReverse);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">ReverseStringInPlace(wchar_t* strToReverse);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">long</td>
+    <td class="tg-yw4l">RoundToNearestInteger(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">long</td>
+    <td class="tg-yw4l">RoundToNearestInteger(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">long</td>
+    <td class="tg-yw4l">RoundToNearestInteger(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">long</td>
+    <td class="tg-yw4l">RoundUp(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">long</td>
+    <td class="tg-yw4l">RoundUp(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">long</td>
+    <td class="tg-yw4l">RoundUp(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">ShowMessageBox(HWND hWindow, char* message, char* title);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">void</td>
+    <td class="tg-yw4l">ShowMessageBox(HWND hWindow, wchar_t* message, wchar_t* title);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">Sin(double numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">Sin(float numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">Sin(int numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">SinH(double numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">SinH(float numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">SinH(int numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">Smallest(double num1, double num2);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">Smallest(float num1, float num2);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">Smallest(int num1, int num2);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">SquareRoot(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">SquareRoot(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">SquareRoot(int num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char*</td>
+    <td class="tg-yw4l">SubString(char* str, int startIndex, int upToButNotIncludingIndex);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t*</td>
+    <td class="tg-yw4l">SubString(wchar_t* str, >int startIndex, int upToButNotIncludingIndex);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">Tan(double numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">Tan(float numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">Tan(int numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">TanH(double numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">TanH(float numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">TanH(int numInRadians);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">char**</td>
+    <td class="tg-yw4l">Tokenize(char* strToTokenize, char* delimiter, int&amp; outNumTokensFound);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">wchar_t**</td>
+    <td class="tg-yw4l">Tokenize(wchar_t* strToTokenize, wchar_t* delimiter, int&amp; outNumTokensFound);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">Truncate(double num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">Truncate(float num);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">double</td>
+    <td class="tg-yw4l">TwoToTheXPower(double power);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">float</td>
+    <td class="tg-yw4l">TwoToTheXPower(float power);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">int</td>
+    <td class="tg-yw4l">TwoToTheXPower(int power);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">Validate(HWND hWnd, HRESULT result, char* message, char* title);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">bool</td>
+    <td class="tg-yw4l">Validate(HWND hWnd, HRESULT result, wchar_t* messagem wchar_t* title);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">size_t</td>
+    <td class="tg-yw4l">WriteTextFile(char* filePath<, char* bufferToWrite, size_t bufferSize, const char* mode, int seekOffset, int seekOrigin, long* outEndCursorPos);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">size_t</td>
+    <td class="tg-yw4l">WriteTextFileW(wchar_t* filePath<, wchar_t* bufferToWrite, size_t bufferSize, const wchar_t* mode, int seekOffset, int seekOrigin, long* outEndCursorPos);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">size_t</td>
+    <td class="tg-yw4l">WriteBinaryFile(char* filePath, char* bufferToWrite, size_t bufferSize, const char* mode, int seekOffse, int seekOrigin, long* outEndCursorPos);</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">size_t</td>
+    <td class="tg-yw4l">WriteBinaryFileW(wchar_t* filePath, wchar_t* bufferToWrite, size_t bufferSize, const wchar_t* mode, int seekOffset, int seekOrigin, long* outEndCursorPos);</td>
+  </tr>
+</table>

@@ -1,0 +1,9 @@
+var searchData=
+[
+  ['showmessagebox',['ShowMessageBox',['../class_ace.html#a77deefeaedf4e2bd0eee31ad3bdfb2e7',1,'Ace::ShowMessageBox(HWND hWindow, char *message, char *title=&quot;Error&quot;)'],['../class_ace.html#a2acc2788f710af663da2badb5d28134e',1,'Ace::ShowMessageBox(HWND hWindow, wchar_t *message, wchar_t *title=L&quot;Error&quot;)']]],
+  ['sin',['Sin',['../class_ace.html#a06e3e46bfa12aeef6c13edf8d57b2b24',1,'Ace::Sin(double numInRadians)'],['../class_ace.html#a94a843acbc1575633980b4e00253847e',1,'Ace::Sin(float numInRadians)'],['../class_ace.html#a4100b79a22131a7a80422f69ad6c798b',1,'Ace::Sin(int numInRadians)']]],
+  ['sinh',['SinH',['../class_ace.html#ab20988efdaa2f4ad09ee73c6ce108e19',1,'Ace::SinH(double numInRadians)'],['../class_ace.html#a3e7c3e005fd8cb91de75cbf911766bf3',1,'Ace::SinH(float numInRadians)'],['../class_ace.html#a77b76c2bd994f8d0524394b894d4adc5',1,'Ace::SinH(int numInRadians)']]],
+  ['smallest',['Smallest',['../class_ace.html#a43a41e4cedf8be5164b3938a010028c8',1,'Ace::Smallest(double num1, double num2)'],['../class_ace.html#ad07c864576d94daac736fe121ae87a02',1,'Ace::Smallest(float num1, float num2)'],['../class_ace.html#af5b08817503584cb546dba5d81174c23',1,'Ace::Smallest(int num1, int num2)']]],
+  ['squareroot',['SquareRoot',['../class_ace.html#a29179fe6de4ef729c5922aeafbde9821',1,'Ace::SquareRoot(double num)'],['../class_ace.html#ad29221122ff5bc838ed5741cef72364b',1,'Ace::SquareRoot(float num)'],['../class_ace.html#ae5443299e3160c883357d90a2346be13',1,'Ace::SquareRoot(int num)']]],
+  ['substring',['SubString',['../class_ace.html#ab94f6a0b50f95846b20a921c1c48cbbd',1,'Ace::SubString(char *str, int startIndex, int upToButNotIncludingIndex=INT_MAX)'],['../class_ace.html#a7d4131741f469b7220631088526e12ee',1,'Ace::SubString(wchar_t *str, int startIndex, int upToButNotIncludingIndex=INT_MAX)']]]
+];

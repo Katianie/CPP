@@ -1,6 +1,6 @@
 
-AceLibrary/.vs/AceLibrary/v14/.suo
-AceLibrary/AceLibrary.sdf
+*.suo
+*.sdf
 *.sln
 *.db
 *.zip

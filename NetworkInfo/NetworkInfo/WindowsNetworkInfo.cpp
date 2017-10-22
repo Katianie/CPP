@@ -11,71 +11,12 @@ WindowsNetworkInfo::~WindowsNetworkInfo()
 {
 	//Call base's destructor.
 	NetworkInfo::~NetworkInfo();
+
+	//Destroy any and all allocated data buffers.
+	WindowsNetworkInfo::DestroyBuffers(myNumAdapters);
 }
 
 ///Functions
-bool WindowsNetworkInfo::InitializeBuffers(unsigned int numAdapters)
-{
-	if (numAdapters > 0)
-	{
-		myNumAdapterPrefixAddresses =	(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
-		myNumAnycastAddresses =			(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
-		myNumDNSServerAddresses =		(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
-		myNumDNSSuffixes =				(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
-		myNumGatewayAddresses =			(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
-		myNumMulticastAddresses =		(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
-		myPhysicalAddressLengths =		(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
-		myNumUnicastAddresses =			(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
-		myNumWindowsServerAddresses =	(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
-		myNumZoneIndexes =				(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
-
-		//Allocate data arrays now that we know how many adapters there are.
-		myAdapterNames =			(char**)malloc(numAdapters * sizeof(char*));
-		myAdapterPrefixAddresses =	(char***)malloc(numAdapters * sizeof(char**));
-		myAnycastAddresses =		(char***)malloc(numAdapters * sizeof(char**));
-		myConnectionTypes =			(char**)malloc(numAdapters * sizeof(char*));
-		myCompartmentTypes =		(char**)malloc(numAdapters * sizeof(char*));
-		myDescriptions =			(wchar_t**)malloc(numAdapters * sizeof(wchar_t*));
-		myDHCPV4Servers =			(char**)malloc(numAdapters * sizeof(char*));
-		myDHCPV6Servers =			(char**)malloc(numAdapters * sizeof(char*));
-		myDHCPV6ClientDUIDs =		(char**)malloc(numAdapters * sizeof(char*));
-		myDHCPV6Iads =				(unsigned long*)malloc(numAdapters * sizeof(unsigned long));
-		myDNSServerAddresses =		(char***)malloc(numAdapters * sizeof(char**));
-		myDNSSuffixes =				(wchar_t***)malloc((numAdapters + 1) * sizeof(wchar_t**));
-		myFlags =					(char**)malloc(numAdapters * sizeof(char*));
-		myFriendlyNames =			(wchar_t**)malloc(numAdapters * sizeof(wchar_t*));
-		myIfTypes =					(char**)malloc(numAdapters * sizeof(char*));
-		myIPV4IfIndexes =			(unsigned long*)malloc(numAdapters * sizeof(unsigned long));
-		myIPV6IfIndexes =			(unsigned long*)malloc(numAdapters * sizeof(unsigned long));
-		myIPV4Metrics =				(unsigned long*)malloc(numAdapters * sizeof(unsigned long));
-		myIPV6Metrics =				(unsigned long*)malloc(numAdapters * sizeof(unsigned long));
-		myGatewayAddresses =		(char***)malloc(numAdapters * sizeof(char**));
-		myLUIDs =					(unsigned __int64*)malloc(numAdapters * sizeof(unsigned __int64));
-		myLUIDIfTypes =				(char**)malloc(numAdapters * sizeof(char*));
-		myLUIDNetIndexes =			(unsigned __int64*)malloc(numAdapters * sizeof(unsigned __int64));
-		myMTUs =					(unsigned long*)malloc(numAdapters * sizeof(unsigned long));
-		myMulticastAddresses =		(char***)malloc(numAdapters * sizeof(char**));
-		myNetworkGUIDs =			(char**)malloc(numAdapters * sizeof(char*));
-		myOperStatuses =			(char**)malloc(numAdapters * sizeof(char*));
-		myPhysicalAddresses =		(char***)malloc(numAdapters * sizeof(char*));
-		myReceiveLinkSpeeds =		(unsigned __int64*)malloc(numAdapters * sizeof(unsigned __int64));
-		myTransmitLinkSpeeds =		(unsigned __int64*)malloc(numAdapters * sizeof(unsigned __int64));
-		myTunnelTypes =				(char**)malloc(numAdapters * sizeof(char*));
-		myUnicastAddresses =		(char***)malloc(numAdapters * sizeof(char**));
-		myWindowsServerAddresses =	(char***)malloc(numAdapters * sizeof(char**));
-		myZoneIndexes =				(unsigned long**)malloc(numAdapters * sizeof(unsigned long*));
-
-		return true;
-	}
-
-	return false;
-}
-
-void WindowsNetworkInfo::DestroyBuffers(unsigned int numAdapters)
-{
-
-}
-
 void WindowsNetworkInfo::Initialize()
 {
 #ifdef _WIN32
@@ -110,23 +51,27 @@ void WindowsNetworkInfo::Initialize()
 			//AF_UNSPEC returns both IPV4 and IPV6.
 			adaptersRetVal = GetAdaptersAddresses(AF_UNSPEC, adaptersFlag, NULL, pAdapterAddresses, &adapterBufferLength);
 
-			if (connectionAttempt > 0 && adaptersRetVal != NO_ERROR)
+			if (adaptersRetVal != NO_ERROR)
 			{
-				printf("Error: Failed to get adapters addresses with return code %d (attempt %u/%d)\n.", adaptersRetVal, connectionAttempt, MAX_CONNECTION_ATTEMPTS);
-				free(pAdapterAddresses);
+				if (connectionAttempt > 0)
+				{
+					printf("Error: Failed to get adapters addresses with return code %d (attempt %u/%d)\n.", adaptersRetVal, connectionAttempt, MAX_CONNECTION_ATTEMPTS);
+				}
+
+				delete pAdapterAddresses;
 				pAdapterAddresses = NULL;
 			}
 		}
 	}
 
 	//Ensure we connected successfully.
-	IP_ADAPTER_ADDRESSES* tempAdapterAddress = pAdapterAddresses;
+	IP_ADAPTER_ADDRESSES* headAdapterAddress = pAdapterAddresses;
 	if (adaptersRetVal == NO_ERROR)
 	{
 		//Calculate number of adapters.
-		for (myNumAdapters = 0; tempAdapterAddress != NULL; myNumAdapters++)
+		for (myNumAdapters = 0; headAdapterAddress != NULL; myNumAdapters++)
 		{
-			tempAdapterAddress = tempAdapterAddress->Next;
+			headAdapterAddress = headAdapterAddress->Next;
 		}
 	}
 
@@ -136,6 +81,9 @@ void WindowsNetworkInfo::Initialize()
 		//Ensure the buffers initialized successfully before attempting to get the data.
 		if (InitializeBuffers(myNumAdapters) == true)
 		{
+			//Hold on to the head so we can delete later.
+			headAdapterAddress = pAdapterAddresses;
+
 			//Go through each adapter we found.
 			for (unsigned int currAdapterIndex = 0; pAdapterAddresses != NULL && currAdapterIndex < myNumAdapters; currAdapterIndex++)
 			{
@@ -143,19 +91,22 @@ void WindowsNetworkInfo::Initialize()
 				if (pAdapterAddresses->AdapterName != NULL && strlen(pAdapterAddresses->AdapterName) > 0)
 				{
 					size_t adapterNameLen = strlen(pAdapterAddresses->AdapterName) + 1;
-					myAdapterNames[currAdapterIndex] = (char*)calloc(adapterNameLen, sizeof(char));
-					if (strcpy_s(myAdapterNames[currAdapterIndex], adapterNameLen * sizeof(char), pAdapterAddresses->AdapterName) != 0)
+					if (adapterNameLen > 1)
 					{
-						printf("Error: Failed to get Adapter Name[%u]\n", currAdapterIndex);
-						free(myAdapterNames[currAdapterIndex]);
-						myAdapterNames[currAdapterIndex] = NULL;
+						myAdapterNames[currAdapterIndex] = (char*)calloc(adapterNameLen, sizeof(char));
+						if (strcpy_s(myAdapterNames[currAdapterIndex], adapterNameLen * sizeof(char), pAdapterAddresses->AdapterName) != 0)
+						{
+							printf("Error: Failed to get Adapter Name[%u]\n", currAdapterIndex);
+							free(myAdapterNames[currAdapterIndex]);
+							myAdapterNames[currAdapterIndex] = NULL;
+						}
 					}
 				}
 				else
 				{
 					myAdapterNames[currAdapterIndex] = NULL;
 				}
-				
+
 				//Adapter Prefixes
 				pAdapterPrefixes = pAdapterAddresses->FirstPrefix;
 				if (pAdapterPrefixes != NULL)
@@ -164,10 +115,10 @@ void WindowsNetworkInfo::Initialize()
 					myNumAdapterPrefixAddresses[currAdapterIndex] = 0;
 					myAdapterPrefixAddresses[currAdapterIndex] = (char**)malloc(NetworkInfo::MAX_SUB_ARRAY_SIZE * sizeof(char*));
 
-					while(pAdapterPrefixes != NULL)
+					while (pAdapterPrefixes != NULL)
 					{
 						SOCKET_ADDRESS currPrefixAddress = pAdapterPrefixes->Address;
-						if (currPrefixAddress.lpSockaddr->sa_data != NULL > 0)
+						if (currPrefixAddress.lpSockaddr != NULL)
 						{
 							if (currPrefixAddress.lpSockaddr->sa_family == AF_INET)
 							{
@@ -223,7 +174,7 @@ void WindowsNetworkInfo::Initialize()
 					while (pAnycastAddresses != NULL)
 					{
 						SOCKET_ADDRESS currAnycastAddress = pAnycastAddresses->Address;
-						if (currAnycastAddress.lpSockaddr->sa_data != NULL > 0)
+						if (currAnycastAddress.lpSockaddr != NULL)
 						{
 							if (currAnycastAddress.lpSockaddr->sa_family == AF_INET)
 							{
@@ -346,44 +297,56 @@ void WindowsNetworkInfo::Initialize()
 				}
 
 				//DHCP V4 Server
-				size_t dhcpv4ServerStrLen = pAdapterAddresses->Dhcpv4Server.iSockaddrLength;
-				if (dhcpv4ServerStrLen > 0)
+				myDHCPV4Servers[currAdapterIndex] = NULL;
+				SOCKET_ADDRESS dhcpv4Server = pAdapterAddresses->Dhcpv4Server;
+				if (dhcpv4Server.lpSockaddr != NULL)
 				{
-					myDHCPV4Servers[currAdapterIndex] = (char*)calloc(dhcpv4ServerStrLen, sizeof(char)) + 1;
-					if (strcpy_s(myDHCPV4Servers[currAdapterIndex], dhcpv4ServerStrLen, pAdapterAddresses->Dhcpv4Server.lpSockaddr->sa_data) != 0)
+					if (dhcpv4Server.lpSockaddr->sa_family == AF_INET)
 					{
-						printf("Error: Failed to get DHCPV4 Server[%u]", currAdapterIndex);
-						free(myDHCPV4Servers[currAdapterIndex]);
-						myDHCPV4Servers[currAdapterIndex] = NULL;
+						myDHCPV4Servers[currAdapterIndex] = (char*)calloc(INET_ADDRSTRLEN + 1, sizeof(char));
+
+						//Get the String representation of the IPV4 address.
+						sockaddressIn = (sockaddr_in*)dhcpv4Server.lpSockaddr;
+						inet_ntop(AF_INET, &(sockaddressIn->sin_addr), myDHCPV4Servers[currAdapterIndex], INET_ADDRSTRLEN + 1);
 					}
-				}
-				else
-				{
-					myDHCPV4Servers[currAdapterIndex] = NULL;
+					else if (dhcpv4Server.lpSockaddr->sa_family == AF_INET6)
+					{
+						myDHCPV4Servers[currAdapterIndex] = (char*)calloc(INET6_ADDRSTRLEN + 1, sizeof(char));
+
+						//Get the String representation of the IPV6 address.
+						sockaddressIn6 = (sockaddr_in6*)dhcpv4Server.lpSockaddr;
+						inet_ntop(AF_INET6, &(sockaddressIn6->sin6_addr), myDHCPV4Servers[currAdapterIndex], INET6_ADDRSTRLEN + 1);
+					}
 				}
 
 				//DHCP V6 Server
-				size_t dhcpv6ServerStrLen = pAdapterAddresses->Dhcpv6Server.iSockaddrLength;
-				if (dhcpv6ServerStrLen > 0)
+				myDHCPV6Servers[currAdapterIndex] = NULL;
+				SOCKET_ADDRESS dhcpv6Server = pAdapterAddresses->Dhcpv6Server;
+				if (dhcpv6Server.lpSockaddr != NULL)
 				{
-					myDHCPV6Servers[currAdapterIndex] = (char*)calloc(dhcpv6ServerStrLen, sizeof(char)) + 1;
-					if (strcpy_s(myDHCPV6Servers[currAdapterIndex], dhcpv6ServerStrLen, pAdapterAddresses->Dhcpv6Server.lpSockaddr->sa_data) != 0)
+					if (dhcpv6Server.lpSockaddr->sa_family == AF_INET)
 					{
-						printf("Error: Failed to get DHCPV6 Server[%u]", currAdapterIndex);
-						free(myDHCPV6Servers[currAdapterIndex]);
-						myDHCPV6Servers[currAdapterIndex] = NULL;
+						myDHCPV6Servers[currAdapterIndex] = (char*)calloc(INET_ADDRSTRLEN + 1, sizeof(char));
+
+						//Get the String representation of the IPV4 address.
+						sockaddressIn = (sockaddr_in*)dhcpv6Server.lpSockaddr;
+						inet_ntop(AF_INET, &(sockaddressIn->sin_addr), myDHCPV6Servers[currAdapterIndex], INET_ADDRSTRLEN + 1);
 					}
-				}
-				else
-				{
-					myDHCPV6Servers[currAdapterIndex] = NULL;
+					else if (dhcpv6Server.lpSockaddr->sa_family == AF_INET6)
+					{
+						myDHCPV6Servers[currAdapterIndex] = (char*)calloc(INET6_ADDRSTRLEN + 1, sizeof(char));
+
+						//Get the String representation of the IPV6 address.
+						sockaddressIn6 = (sockaddr_in6*)dhcpv6Server.lpSockaddr;
+						inet_ntop(AF_INET6, &(sockaddressIn6->sin6_addr), myDHCPV6Servers[currAdapterIndex], INET6_ADDRSTRLEN + 1);
+					}
 				}
 
 				//DHCP V6 Client DUID
 				ULONG dhcpv6ClientDUIDLen = pAdapterAddresses->Dhcpv6ClientDuidLength;
 				if (dhcpv6ClientDUIDLen > 0)
 				{
-					myDHCPV6ClientDUIDs[currAdapterIndex] = (char*)calloc(dhcpv6ClientDUIDLen, sizeof(char)) + 1;
+					myDHCPV6ClientDUIDs[currAdapterIndex] = (char*)calloc(dhcpv6ClientDUIDLen + 1, sizeof(char));
 					for (unsigned long currDHCPCLientDUIDIndex = 0; currDHCPCLientDUIDIndex < dhcpv6ClientDUIDLen; currDHCPCLientDUIDIndex++)
 					{
 						myDHCPV6ClientDUIDs[currAdapterIndex][currDHCPCLientDUIDIndex] = pAdapterAddresses->Dhcpv6ClientDuid[currDHCPCLientDUIDIndex];
@@ -394,7 +357,7 @@ void WindowsNetworkInfo::Initialize()
 					myDHCPV6ClientDUIDs[currAdapterIndex] = NULL;
 				}
 
-				//DHCP V6 Iaid
+				//DHCP V6 IAID
 				myDHCPV6Iads[currAdapterIndex] = pAdapterAddresses->Dhcpv6Iaid;
 
 				//DNS Server Addresses.
@@ -408,7 +371,7 @@ void WindowsNetworkInfo::Initialize()
 					while (pDNSServerAddresses != NULL)
 					{
 						SOCKET_ADDRESS currDNSServerAddress = pDNSServerAddresses->Address;
-						if (currDNSServerAddress.lpSockaddr->sa_data != NULL > 0)
+						if (currDNSServerAddress.lpSockaddr != NULL)
 						{
 							if (currDNSServerAddress.lpSockaddr->sa_family == AF_INET)
 							{
@@ -655,7 +618,7 @@ void WindowsNetworkInfo::Initialize()
 					while (pGatewayAddresses != NULL)
 					{
 						SOCKET_ADDRESS currGatewayAddress = pGatewayAddresses->Address;
-						if (currGatewayAddress.lpSockaddr->sa_data != NULL > 0)
+						if (currGatewayAddress.lpSockaddr != NULL)
 						{
 							if (currGatewayAddress.lpSockaddr->sa_family == AF_INET)
 							{
@@ -731,7 +694,7 @@ void WindowsNetworkInfo::Initialize()
 					while (pMulticastAddresses != NULL)
 					{
 						SOCKET_ADDRESS currMulticastAddress = pMulticastAddresses->Address;
-						if (currMulticastAddress.lpSockaddr->sa_data != NULL > 0)
+						if (currMulticastAddress.lpSockaddr != NULL)
 						{
 							if (currMulticastAddress.lpSockaddr->sa_family == AF_INET)
 							{
@@ -785,7 +748,7 @@ void WindowsNetworkInfo::Initialize()
 					myNetworkGUIDs[currAdapterIndex] = NULL;
 				}
 
-				//Oper Status
+				//OPER Status
 				IF_OPER_STATUS currAdapterOperStatus = pAdapterAddresses->OperStatus;
 				const char* operStatusStr;
 				if (currAdapterOperStatus == IF_OPER_STATUS::IfOperStatusUp)
@@ -820,7 +783,7 @@ void WindowsNetworkInfo::Initialize()
 				myOperStatuses[currAdapterIndex] = (char*)calloc(operStatusStrLen, sizeof(char));
 				if (strcpy_s(myOperStatuses[currAdapterIndex], operStatusStrLen, operStatusStr) != 0)
 				{
-					printf("Error: Failed to get Oper Status[%u]", currAdapterIndex);
+					printf("Error: Failed to get OPER Status[%u]", currAdapterIndex);
 					free(myOperStatuses[currAdapterIndex]);
 					myOperStatuses[currAdapterIndex] = NULL;
 				}
@@ -829,18 +792,13 @@ void WindowsNetworkInfo::Initialize()
 				myPhysicalAddressLengths[currAdapterIndex] = pAdapterAddresses->PhysicalAddressLength;
 				if (myPhysicalAddressLengths[currAdapterIndex] > 0)
 				{
-					myPhysicalAddresses[currAdapterIndex] = (char**)calloc(myPhysicalAddressLengths[currAdapterIndex], sizeof(char*));
-					for (unsigned int currByteIndex = 0; currByteIndex < 8; currByteIndex++)
+					myPhysicalAddresses[currAdapterIndex] = (char*)calloc(MAX_ADAPTER_ADDRESS_LENGTH, sizeof(char*));
+					if (sprintf_s(myPhysicalAddresses[currAdapterIndex], MAX_ADAPTER_ADDRESS_LENGTH, "%x\n", pAdapterAddresses->PhysicalAddress) == -1)
 					{
-						myPhysicalAddresses[currAdapterIndex][currByteIndex] = (char*)calloc(8, sizeof(char));
-						if (sprintf_s(myPhysicalAddresses[currAdapterIndex][currByteIndex], 8, "%x\n", pAdapterAddresses->PhysicalAddress[currByteIndex]) == -1)
-						{
-							printf("Error: Failed to get Physical Address[%u]", currAdapterIndex);
-							free(myPhysicalAddresses[currAdapterIndex]);
-							myPhysicalAddresses[currAdapterIndex] = NULL;
-						}
+						printf("Error: Failed to get Physical Address[%u]", currAdapterIndex);
+						free(myPhysicalAddresses[currAdapterIndex]);
+						myPhysicalAddresses[currAdapterIndex] = NULL;
 					}
-
 				}
 				else
 				{
@@ -904,7 +862,7 @@ void WindowsNetworkInfo::Initialize()
 					while (pUnicastAddresses != NULL)
 					{
 						SOCKET_ADDRESS currUnicastAddress = pUnicastAddresses->Address;
-						if (currUnicastAddress.lpSockaddr->sa_data != NULL > 0)
+						if (currUnicastAddress.lpSockaddr != NULL)
 						{
 							if (currUnicastAddress.lpSockaddr->sa_family == AF_INET)
 							{
@@ -960,7 +918,7 @@ void WindowsNetworkInfo::Initialize()
 					while (pWindowsServerAddresses != NULL)
 					{
 						SOCKET_ADDRESS currWindowsServerAddress = pWindowsServerAddresses->Address;
-						if (currWindowsServerAddress.lpSockaddr->sa_data != NULL > 0)
+						if (currWindowsServerAddress.lpSockaddr != NULL)
 						{
 							if (currWindowsServerAddress.lpSockaddr->sa_family == AF_INET)
 							{
@@ -1007,17 +965,689 @@ void WindowsNetworkInfo::Initialize()
 
 				//Zone Indexes
 				myZoneIndexes[currAdapterIndex] = (unsigned long*)calloc(16, sizeof(unsigned long));
-				for (myNumZoneIndexes[currAdapterIndex] = 1; myNumZoneIndexes[currAdapterIndex] < 16; myNumZoneIndexes[currAdapterIndex]++)
+				for (unsigned int currZoneIndex = 0; currZoneIndex < 16; currZoneIndex++)
 				{
-					myZoneIndexes[currAdapterIndex][myNumZoneIndexes[currAdapterIndex] - 1] = pAdapterAddresses->ZoneIndices[myNumZoneIndexes[currAdapterIndex] - 1];
+					myZoneIndexes[currAdapterIndex][currZoneIndex] = pAdapterAddresses->ZoneIndices[currZoneIndex];
 				}
 
 				pAdapterAddresses = pAdapterAddresses->Next;
+			}
+
+			if (headAdapterAddress != NULL)
+			{
+				delete headAdapterAddress;
+				headAdapterAddress = NULL;
 			}
 		}
 	}
 #endif
 }
+
+bool WindowsNetworkInfo::InitializeBuffers(unsigned int numAdapters)
+{
+	if (numAdapters > 0)
+	{
+		myNumAdapterPrefixAddresses =	(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
+		myNumAnycastAddresses =			(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
+		myNumDNSServerAddresses =		(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
+		myNumDNSSuffixes =				(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
+		myNumGatewayAddresses =			(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
+		myNumMulticastAddresses =		(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
+		myPhysicalAddressLengths =		(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
+		myNumUnicastAddresses =			(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
+		myNumWindowsServerAddresses =	(unsigned int*)malloc(numAdapters * sizeof(unsigned int));
+
+		//Allocate data arrays now that we know how many adapters there are.
+		myAdapterNames =			(char**)malloc(numAdapters * sizeof(char*));
+		myAdapterPrefixAddresses =	(char***)malloc(numAdapters * sizeof(char**));
+		myAnycastAddresses =		(char***)malloc(numAdapters * sizeof(char**));
+		myConnectionTypes =			(char**)malloc(numAdapters * sizeof(char*));
+		myCompartmentTypes =		(char**)malloc(numAdapters * sizeof(char*));
+		myDescriptions =			(wchar_t**)malloc(numAdapters * sizeof(wchar_t*));
+		myDHCPV4Servers =			(char**)malloc(numAdapters * sizeof(char*));
+		myDHCPV6Servers =			(char**)malloc(numAdapters * sizeof(char*));
+		myDHCPV6ClientDUIDs =		(char**)malloc(numAdapters * sizeof(char*));
+		myDHCPV6Iads =				(unsigned long*)malloc(numAdapters * sizeof(unsigned long));
+		myDNSServerAddresses =		(char***)malloc(numAdapters * sizeof(char**));
+		myDNSSuffixes =				(wchar_t***)malloc((numAdapters + 1) * sizeof(wchar_t**));
+		myFlags =					(char**)malloc(numAdapters * sizeof(char*));
+		myFriendlyNames =			(wchar_t**)malloc(numAdapters * sizeof(wchar_t*));
+		myIfTypes =					(char**)malloc(numAdapters * sizeof(char*));
+		myIPV4IfIndexes =			(unsigned long*)malloc(numAdapters * sizeof(unsigned long));
+		myIPV6IfIndexes =			(unsigned long*)malloc(numAdapters * sizeof(unsigned long));
+		myIPV4Metrics =				(unsigned long*)malloc(numAdapters * sizeof(unsigned long));
+		myIPV6Metrics =				(unsigned long*)malloc(numAdapters * sizeof(unsigned long));
+		myGatewayAddresses =		(char***)malloc(numAdapters * sizeof(char**));
+		myLUIDs =					(unsigned __int64*)malloc(numAdapters * sizeof(unsigned __int64));
+		myLUIDIfTypes =				(char**)malloc(numAdapters * sizeof(char*));
+		myLUIDNetIndexes =			(unsigned __int64*)malloc(numAdapters * sizeof(unsigned __int64));
+		myMTUs =					(unsigned long*)malloc(numAdapters * sizeof(unsigned long));
+		myMulticastAddresses =		(char***)malloc(numAdapters * sizeof(char**));
+		myNetworkGUIDs =			(char**)malloc(numAdapters * sizeof(char*));
+		myOperStatuses =			(char**)malloc(numAdapters * sizeof(char*));
+		myPhysicalAddresses =		(char**)malloc(numAdapters * sizeof(char*));
+		myReceiveLinkSpeeds =		(unsigned __int64*)malloc(numAdapters * sizeof(unsigned __int64));
+		myTransmitLinkSpeeds =		(unsigned __int64*)malloc(numAdapters * sizeof(unsigned __int64));
+		myTunnelTypes =				(char**)malloc(numAdapters * sizeof(char*));
+		myUnicastAddresses =		(char***)malloc(numAdapters * sizeof(char**));
+		myWindowsServerAddresses =	(char***)malloc(numAdapters * sizeof(char**));
+		myZoneIndexes =				(unsigned long**)malloc(numAdapters * sizeof(unsigned long*));
+
+		return true;
+	}
+
+	return false;
+}
+
+void WindowsNetworkInfo::DestroyBuffers(unsigned int numAdapters)
+{
+	for (unsigned int currAdapterIndex = 0; currAdapterIndex < numAdapters; currAdapterIndex++)
+	{
+		if (myAdapterNames[currAdapterIndex] != NULL)
+		{
+			delete myAdapterNames[currAdapterIndex];
+			myAdapterNames[currAdapterIndex] = NULL;
+		}
+
+		if (myNumAdapterPrefixAddresses[currAdapterIndex] > 0)
+		{
+			for (unsigned int currAdapterPrefixIndex = 0; currAdapterPrefixIndex < myNumAdapterPrefixAddresses[currAdapterIndex]; currAdapterPrefixIndex++)
+			{
+				if (myAdapterPrefixAddresses[currAdapterIndex][currAdapterPrefixIndex] != NULL)
+				{
+					delete myAdapterPrefixAddresses[currAdapterIndex][currAdapterPrefixIndex];
+					myAdapterPrefixAddresses[currAdapterIndex][currAdapterPrefixIndex] = NULL;
+				}
+			}
+
+			delete myAdapterPrefixAddresses[currAdapterIndex];
+			myAdapterPrefixAddresses[currAdapterIndex] = NULL;
+			myNumAdapterPrefixAddresses[currAdapterIndex] = 0;
+		}
+
+		if (myNumAnycastAddresses[currAdapterIndex] > 0)
+		{
+			for (unsigned int currAnycastAddressIndex = 0; currAnycastAddressIndex < myNumAnycastAddresses[currAdapterIndex]; currAnycastAddressIndex++)
+			{
+				if (myAnycastAddresses[currAdapterIndex][currAnycastAddressIndex] != NULL)
+				{
+					delete myAnycastAddresses[currAdapterIndex][currAnycastAddressIndex];
+					myAnycastAddresses[currAdapterIndex][currAnycastAddressIndex] = NULL;
+				}
+			}
+
+			delete myAnycastAddresses[currAdapterIndex];
+			myAnycastAddresses[currAdapterIndex] = NULL;
+			myNumAnycastAddresses[currAdapterIndex] = 0;
+		}
+
+		if (myConnectionTypes[currAdapterIndex] != NULL)
+		{
+			delete myConnectionTypes[currAdapterIndex];
+			myConnectionTypes[currAdapterIndex] = NULL;
+		}
+
+		if (myCompartmentTypes[currAdapterIndex] != NULL)
+		{
+			delete myCompartmentTypes[currAdapterIndex];
+			myCompartmentTypes[currAdapterIndex] = NULL;
+		}
+
+		if (myDescriptions[currAdapterIndex] != NULL)
+		{
+			delete myDescriptions[currAdapterIndex];
+			myDescriptions[currAdapterIndex] = NULL;
+		}
+
+		if (myDHCPV4Servers[currAdapterIndex] != NULL)
+		{
+			delete myDHCPV4Servers[currAdapterIndex];
+			myDHCPV4Servers[currAdapterIndex] = NULL;
+		}
+
+		if (myDHCPV6Servers[currAdapterIndex] != NULL)
+		{
+			delete myDHCPV6Servers[currAdapterIndex];
+			myDHCPV6Servers[currAdapterIndex] = NULL;
+		}
+
+		if (myDHCPV6ClientDUIDs[currAdapterIndex] != NULL)
+		{
+			delete myDHCPV6ClientDUIDs[currAdapterIndex];
+			myDHCPV6ClientDUIDs[currAdapterIndex] = NULL;
+		}
+
+		if (myDHCPV6Iads != NULL)
+		{
+			myDHCPV6Iads[currAdapterIndex] = 0;
+		}
+
+		if (myNumDNSServerAddresses[currAdapterIndex] > 0)
+		{
+			for (unsigned int currDNSServerAddressIndex = 0; currDNSServerAddressIndex < myNumDNSServerAddresses[currAdapterIndex]; currDNSServerAddressIndex++)
+			{
+				delete myDNSServerAddresses[currAdapterIndex][currDNSServerAddressIndex];
+				myDNSServerAddresses[currAdapterIndex][currDNSServerAddressIndex] = NULL;
+			}
+
+			delete myDNSServerAddresses[currAdapterIndex];
+			myDNSServerAddresses[currAdapterIndex] = NULL;
+			myNumDNSServerAddresses[currAdapterIndex] = 0;
+		}
+
+		if (myNumDNSSuffixes[currAdapterIndex] > 0)
+		{
+			for (unsigned int currDNSSuffixIndex = 0; currDNSSuffixIndex < myNumDNSSuffixes[currAdapterIndex]; currDNSSuffixIndex++)
+			{
+				delete myDNSSuffixes[currAdapterIndex][currDNSSuffixIndex];
+				myDNSSuffixes[currAdapterIndex][currDNSSuffixIndex] = NULL;
+			}
+
+			delete myDNSSuffixes[currAdapterIndex];
+			myDNSSuffixes[currAdapterIndex] = NULL;
+			myNumDNSSuffixes[currAdapterIndex] = 0;
+		}
+
+		if (myFlags[currAdapterIndex] != NULL)
+		{
+			delete myFlags[currAdapterIndex];
+			myFlags[currAdapterIndex] = NULL;
+		}
+
+		if (myFriendlyNames[currAdapterIndex] != NULL)
+		{
+			delete myFriendlyNames[currAdapterIndex];
+			myFriendlyNames[currAdapterIndex] = NULL;
+		}
+
+		if (myIfTypes[currAdapterIndex] != NULL)
+		{
+			delete myIfTypes[currAdapterIndex];
+			myIfTypes[currAdapterIndex] = NULL;
+		}
+
+		if (myIPV4IfIndexes != NULL)
+		{
+			myIPV4IfIndexes[currAdapterIndex] = 0;
+		}
+
+		if (myIPV6IfIndexes != NULL)
+		{
+			myIPV6IfIndexes[currAdapterIndex] = 0;
+		}
+
+		if (myIPV4Metrics != NULL)
+		{
+			myIPV4Metrics[currAdapterIndex] = 0;
+		}
+
+		if (myIPV6Metrics != NULL)
+		{
+			myIPV6Metrics[currAdapterIndex] = 0;
+		}
+
+		if (myNumGatewayAddresses[currAdapterIndex] > 0)
+		{
+			for (unsigned int currGatewayAddressIndex = 0; currGatewayAddressIndex < myNumGatewayAddresses[currAdapterIndex]; currGatewayAddressIndex++)
+			{
+				delete myGatewayAddresses[currAdapterIndex][currGatewayAddressIndex];
+				myGatewayAddresses[currAdapterIndex][currGatewayAddressIndex] = NULL;
+			}
+
+			delete myGatewayAddresses[currAdapterIndex];
+			myGatewayAddresses[currAdapterIndex] = NULL;
+			myNumGatewayAddresses[currAdapterIndex] = 0;
+		}
+
+		if (myLUIDs != NULL)
+		{
+			myLUIDs[currAdapterIndex] = 0;
+		}
+
+		if (myLUIDIfTypes[currAdapterIndex] != NULL)
+		{
+			delete myLUIDIfTypes[currAdapterIndex];
+			myLUIDIfTypes[currAdapterIndex] = NULL;
+		}
+
+		if (myLUIDNetIndexes != NULL)
+		{
+			myLUIDNetIndexes[currAdapterIndex] = 0;
+		}
+
+		if (myNumMulticastAddresses[currAdapterIndex] > 0)
+		{
+			for (unsigned int currMulticastAddressIndex = 0; currMulticastAddressIndex < myNumMulticastAddresses[currAdapterIndex]; currMulticastAddressIndex++)
+			{
+				delete myMulticastAddresses[currAdapterIndex][currMulticastAddressIndex];
+				myMulticastAddresses[currAdapterIndex][currMulticastAddressIndex] = NULL;
+			}
+
+			delete myMulticastAddresses[currAdapterIndex];
+			myMulticastAddresses[currAdapterIndex] = NULL;
+			myNumMulticastAddresses[currAdapterIndex] = 0;
+		}
+
+		if (myNetworkGUIDs[currAdapterIndex] != NULL)
+		{
+			delete myNetworkGUIDs[currAdapterIndex];
+			myNetworkGUIDs[currAdapterIndex] = NULL;
+		}
+
+		if (myOperStatuses[currAdapterIndex] != NULL)
+		{
+			delete myOperStatuses[currAdapterIndex];
+			myOperStatuses[currAdapterIndex] = NULL;
+		}
+
+		if (myPhysicalAddresses[currAdapterIndex] != NULL)
+		{
+			delete myPhysicalAddresses[currAdapterIndex];
+			myPhysicalAddresses[currAdapterIndex] = NULL;
+			myPhysicalAddressLengths[currAdapterIndex] = 0;
+		}
+
+		if (myReceiveLinkSpeeds != NULL)
+		{
+			myReceiveLinkSpeeds[currAdapterIndex] = 0;
+		}
+
+		if (myTransmitLinkSpeeds != NULL)
+		{
+			myTransmitLinkSpeeds[currAdapterIndex] = 0;
+		}
+
+		if (myTunnelTypes[currAdapterIndex] != NULL)
+		{
+			delete myTunnelTypes[currAdapterIndex];
+			myTunnelTypes[currAdapterIndex] = NULL;
+		}
+
+		if (myNumUnicastAddresses[currAdapterIndex] > 0)
+		{
+			for (unsigned int currUnicastAddressIndex = 0; currUnicastAddressIndex < myNumUnicastAddresses[currAdapterIndex]; currUnicastAddressIndex++)
+			{
+				delete myUnicastAddresses[currAdapterIndex][currUnicastAddressIndex];
+				myUnicastAddresses[currAdapterIndex][currUnicastAddressIndex] = NULL;
+			}
+
+			delete myUnicastAddresses[currAdapterIndex];
+			myUnicastAddresses[currAdapterIndex] = NULL;
+			myNumUnicastAddresses[currAdapterIndex] = 0;
+		}
+
+		if (myNumWindowsServerAddresses[currAdapterIndex] > 0)
+		{
+			for (unsigned int currWinServerAddressIndex = 0; currWinServerAddressIndex < myNumWindowsServerAddresses[currAdapterIndex]; currWinServerAddressIndex++)
+			{
+				delete myWindowsServerAddresses[currAdapterIndex][currWinServerAddressIndex];
+				myWindowsServerAddresses[currAdapterIndex][currWinServerAddressIndex] = NULL;
+			}
+
+			delete myWindowsServerAddresses[currAdapterIndex];
+			myWindowsServerAddresses[currAdapterIndex] = NULL;
+			myNumWindowsServerAddresses[currAdapterIndex] = 0;
+		}
+
+		if (myZoneIndexes[currAdapterIndex] != NULL)
+		{
+			delete myZoneIndexes[currAdapterIndex];
+			myZoneIndexes[currAdapterIndex] = NULL;
+		}
+	}
+
+	//All internal data is deleted and zeroed out, now delete the main data buffers.
+	delete myNumAdapterPrefixAddresses;
+	myNumAdapterPrefixAddresses = NULL;
+
+	delete myNumAnycastAddresses;
+	myNumAnycastAddresses = NULL;
+
+	delete myNumDNSServerAddresses;
+	myNumDNSServerAddresses = NULL;
+
+	delete myNumDNSSuffixes;
+	myNumDNSSuffixes = NULL;
+
+	delete myNumGatewayAddresses;
+	myNumGatewayAddresses = NULL;
+
+	delete myNumMulticastAddresses;
+	myNumMulticastAddresses = NULL;
+
+	delete myPhysicalAddressLengths;
+	myPhysicalAddressLengths = NULL;
+
+	delete myNumUnicastAddresses;
+	myNumUnicastAddresses = NULL;
+
+	delete myNumWindowsServerAddresses;
+	myNumWindowsServerAddresses = NULL;
+
+	delete myAdapterNames;
+	myAdapterNames = NULL;
+
+	delete myAdapterPrefixAddresses;
+	myAdapterPrefixAddresses = NULL;
+
+	delete myAnycastAddresses;
+	myAnycastAddresses = NULL;
+
+	delete myConnectionTypes;
+	myConnectionTypes = NULL;
+
+	delete myCompartmentTypes;
+	myCompartmentTypes = NULL;
+
+	delete myDescriptions;
+	myDescriptions = NULL;
+
+	delete myDHCPV4Servers;
+	myDHCPV4Servers = NULL;
+
+	delete myDHCPV6Servers;
+	myDHCPV6Servers = NULL;
+
+	delete myDHCPV6ClientDUIDs;
+	myDHCPV6ClientDUIDs = NULL;
+
+	delete myDHCPV6Iads;
+	myDHCPV6Iads = NULL;
+
+	delete myDNSServerAddresses;
+	myDNSServerAddresses = NULL;
+
+	delete myDNSSuffixes;
+	myDNSSuffixes = NULL;
+
+	delete myFlags;
+	myFlags = NULL;
+
+	delete myFriendlyNames;
+	myFriendlyNames = NULL;
+
+	delete myIfTypes;
+	myIfTypes = NULL;
+
+	delete myIPV4IfIndexes;
+	myIPV4IfIndexes = NULL;
+
+	delete myIPV6IfIndexes;
+	myIPV6IfIndexes = NULL;
+
+	delete myIPV4Metrics;
+	myIPV4Metrics = NULL;
+
+	delete myIPV6Metrics;
+	myIPV6Metrics = NULL;
+
+	delete myGatewayAddresses;
+	myGatewayAddresses = NULL;
+
+	delete myLUIDs;
+	myLUIDs = NULL;
+
+	delete myLUIDIfTypes;
+	myLUIDIfTypes = NULL;
+
+	delete myLUIDNetIndexes;
+	myLUIDNetIndexes = NULL;
+
+	delete myMTUs;
+	myMTUs = NULL;
+
+	delete myMulticastAddresses;
+	myMulticastAddresses = NULL;
+
+	delete myNetworkGUIDs;
+	myNetworkGUIDs = NULL;
+
+	delete myOperStatuses;
+	myOperStatuses = NULL;
+
+	delete myPhysicalAddresses;
+	myPhysicalAddresses = NULL;
+
+	delete myReceiveLinkSpeeds;
+	myReceiveLinkSpeeds = NULL;
+
+	delete myTransmitLinkSpeeds;
+	myTransmitLinkSpeeds = NULL;
+
+	delete myTunnelTypes;
+	myTunnelTypes = NULL;
+
+	delete myUnicastAddresses;
+	myUnicastAddresses = NULL;
+
+	delete myWindowsServerAddresses;
+	myWindowsServerAddresses = NULL;
+
+	delete myZoneIndexes;
+	myZoneIndexes = NULL;
+
+}
+
+char* WindowsNetworkInfo::GetInfo()
+{
+	size_t retValLen = 2 << 15;
+	char* retVal = (char*)calloc(retValLen, sizeof(char));
+
+	sprintf_s(retVal, retValLen, "Number of Adapters:%u\n", myNumAdapters);
+	 
+	for (unsigned int currAdapterIndex = 0; currAdapterIndex < myNumAdapters; currAdapterIndex++)
+	{
+		sprintf_s(retVal, retValLen, "%s==========================\n", retVal);
+
+		if (myAdapterNames[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sAdapterName[%u]:%s\n", retVal, currAdapterIndex, myAdapterNames[currAdapterIndex]);
+		}
+		
+		if (myNumAdapterPrefixAddresses[currAdapterIndex] > 0)
+		{
+			sprintf_s(retVal, retValLen, "%sNumber of Adapter Prefix Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumAdapterPrefixAddresses[currAdapterIndex]);
+			for (unsigned int currAdapterPrefixIndex = 0; currAdapterPrefixIndex < myNumAdapterPrefixAddresses[currAdapterIndex]; currAdapterPrefixIndex++)
+			{
+				sprintf_s(retVal, retValLen, "%sAdapter Prefix Address[%u][%u]:%s\n", retVal, currAdapterIndex, currAdapterPrefixIndex, myAdapterPrefixAddresses[currAdapterIndex][currAdapterPrefixIndex]);
+			}
+		}
+
+		if (myNumAnycastAddresses[currAdapterIndex] > 0)
+		{
+			sprintf_s(retVal, retValLen, "%sNumber of Anycast Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumAnycastAddresses[currAdapterIndex]);
+			for (unsigned int currAnycastAddressIndex = 0; currAnycastAddressIndex < myNumAnycastAddresses[currAdapterIndex]; currAnycastAddressIndex++)
+			{
+				sprintf_s(retVal, retValLen, "%sAdapter Anycast Addresses[%u][%u]:%s\n", retVal, currAdapterIndex, currAnycastAddressIndex, myAnycastAddresses[currAdapterIndex][currAnycastAddressIndex]);
+			}
+		}
+
+		if (myConnectionTypes[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sConnection Type[%u]:%s\n", retVal, currAdapterIndex, myConnectionTypes[currAdapterIndex]);
+		}
+
+		if (myCompartmentTypes[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sCompartment Type[%u]:%s\n", retVal, currAdapterIndex, myCompartmentTypes[currAdapterIndex]);
+		}
+
+		if (myDescriptions[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sDescriptions Type[%u]:%wS\n", retVal, currAdapterIndex, myDescriptions[currAdapterIndex]);
+		}
+
+		if (myDHCPV4Servers[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sDHCPV4 Servers [%u]:%s\n", retVal, currAdapterIndex, myDHCPV4Servers[currAdapterIndex]);
+		}
+
+		if (myDHCPV6Servers[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sDHCPV6 Servers [%u]:%s\n", retVal, currAdapterIndex, myDHCPV6Servers[currAdapterIndex]);
+		}
+
+		if (myDHCPV6ClientDUIDs[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sDHCPV6 Client DUID [%u]:%s\n", retVal, currAdapterIndex, myDHCPV6ClientDUIDs[currAdapterIndex]);
+		}
+
+		if (myDHCPV6Iads[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sDHCPV6 IADS [%u]:%ul\n", retVal, currAdapterIndex, myDHCPV6Iads[currAdapterIndex]);
+		}
+
+		if (myNumDNSServerAddresses[currAdapterIndex] > 0)
+		{
+			sprintf_s(retVal, retValLen, "%sNumber of DNS Server Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumDNSServerAddresses[currAdapterIndex]);
+			for (unsigned int currDNSServerAddressIndex = 0; currDNSServerAddressIndex < myNumDNSServerAddresses[currAdapterIndex]; currDNSServerAddressIndex++)
+			{
+				sprintf_s(retVal, retValLen, "%sDNS Server Addresses[%u][%u]:%s\n", retVal, currAdapterIndex, currDNSServerAddressIndex, myDNSServerAddresses[currAdapterIndex][currDNSServerAddressIndex]);
+			}
+		}
+
+		if (myNumDNSSuffixes[currAdapterIndex] > 0)
+		{
+			sprintf_s(retVal, retValLen, "%sNumber of DNS Suffixes[%u]:%u\n", retVal, currAdapterIndex, myNumDNSSuffixes[currAdapterIndex]);
+			for (unsigned int currDNSSuffixIndex = 0; currDNSSuffixIndex < myNumDNSSuffixes[currAdapterIndex]; currDNSSuffixIndex++)
+			{
+				sprintf_s(retVal, retValLen, "%s\tDNS Suffixes[%u][%u]:%wS\n", retVal, currAdapterIndex, currDNSSuffixIndex, myDNSSuffixes[currAdapterIndex][currDNSSuffixIndex]);
+			}
+		}
+
+		if (myFlags[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sFlag[%u]:%s\n", retVal, currAdapterIndex, myFlags[currAdapterIndex]);
+		}
+		
+		if (myFriendlyNames[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sFriendly Name[%u]:%wS\n", retVal, currAdapterIndex, myFriendlyNames[currAdapterIndex]);
+		}
+
+		if (myIfTypes[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sIf Type[%u]:%s\n", retVal, currAdapterIndex, myIfTypes[currAdapterIndex]);
+		}
+
+		if (myIPV4IfIndexes[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sIPV4 If Index[%u]:%ul\n", retVal, currAdapterIndex, myIPV4IfIndexes[currAdapterIndex]);
+		}
+		
+		if (myIPV6IfIndexes[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sIPV6 If Index[%u]:%ul\n", retVal, currAdapterIndex, myIPV6IfIndexes[currAdapterIndex]);
+		}
+
+		if (myIPV4Metrics[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sIPV4 Metrics[%u]:%ul\n", retVal, currAdapterIndex, myIPV4Metrics[currAdapterIndex]);
+		}
+
+		if (myIPV6Metrics[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sIPV6 Metrics[%u]:%ul\n", retVal, currAdapterIndex, myIPV6Metrics[currAdapterIndex]);
+		}
+
+		if (myNumGatewayAddresses[currAdapterIndex] > 0)
+		{
+			sprintf_s(retVal, retValLen, "%sNumber of Gateway Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumGatewayAddresses[currAdapterIndex]);
+			for (unsigned int currGatewayAddressIndex = 0; currGatewayAddressIndex < myNumGatewayAddresses[currAdapterIndex]; currGatewayAddressIndex++)
+			{
+				sprintf_s(retVal, retValLen, "%sGateway Address[%u][%u]:%s\n", retVal, currAdapterIndex, currGatewayAddressIndex, myGatewayAddresses[currAdapterIndex][currGatewayAddressIndex]);
+			}
+		}
+
+		if (myLUIDs[currAdapterIndex] > 0)
+		{
+			sprintf_s(retVal, retValLen, "%sLUID[%u]:%I64u\n", retVal, currAdapterIndex, myLUIDs[currAdapterIndex]);
+		}
+
+		if (myLUIDIfTypes[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sLUID If Type[%u]:%s\n", retVal, currAdapterIndex, myLUIDIfTypes[currAdapterIndex]);
+		}
+
+		if (myLUIDNetIndexes[currAdapterIndex] > 0)
+		{
+			sprintf_s(retVal, retValLen, "%sLUID Net Index[%u]:%I64u\n", retVal, currAdapterIndex, myLUIDNetIndexes[currAdapterIndex]);
+		}
+
+		if (myMTUs[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sMTU[%u]:%ul\n", retVal, currAdapterIndex, myMTUs[currAdapterIndex]);
+		}
+
+		if (myNumMulticastAddresses[currAdapterIndex] > 0)
+		{
+			sprintf_s(retVal, retValLen, "%sNumber of Multicast Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumMulticastAddresses[currAdapterIndex]);
+			for (unsigned int currMulticastAddressIndex = 0; currMulticastAddressIndex < myNumMulticastAddresses[currAdapterIndex]; currMulticastAddressIndex++)
+			{
+				sprintf_s(retVal, retValLen, "%sMulticast Address[%u][%u]:%s\n", retVal, currAdapterIndex, currMulticastAddressIndex, myMulticastAddresses[currAdapterIndex][currMulticastAddressIndex]);
+			}
+		}
+
+		if (myNetworkGUIDs[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sLUID If Type[%u]:%s\n", retVal, currAdapterIndex, myNetworkGUIDs[currAdapterIndex]);
+		}
+
+		if (myOperStatuses[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sOper Status[%u]:%s\n", retVal, currAdapterIndex, myOperStatuses[currAdapterIndex]);
+		}
+
+		if (myPhysicalAddresses[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sPhysical Address[%u]:%s\n", retVal, currAdapterIndex, myPhysicalAddresses[currAdapterIndex]);
+		}
+
+		if (myReceiveLinkSpeeds[currAdapterIndex] > 0)
+		{
+			sprintf_s(retVal, retValLen, "%sReceive Link Speed[%u]:%I64u\n", retVal, currAdapterIndex, myReceiveLinkSpeeds[currAdapterIndex]);
+		}
+
+		if (myTransmitLinkSpeeds[currAdapterIndex] > 0)
+		{
+			sprintf_s(retVal, retValLen, "%sTransmit Link Speed[%u]:%I64u\n", retVal, currAdapterIndex, myTransmitLinkSpeeds[currAdapterIndex]);
+		}
+
+		if (myTunnelTypes[currAdapterIndex] != NULL)
+		{
+			sprintf_s(retVal, retValLen, "%sTunnel Type[%u]:%s\n", retVal, currAdapterIndex, myTunnelTypes[currAdapterIndex]);
+		}
+
+		if (myNumUnicastAddresses[currAdapterIndex] > 0)
+		{
+			sprintf_s(retVal, retValLen, "%s\tNumber of Unicast Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumUnicastAddresses[currAdapterIndex]);
+			for (unsigned int currUnicastAddressIndex = 0; currUnicastAddressIndex < myNumUnicastAddresses[currAdapterIndex]; currUnicastAddressIndex++)
+			{
+				sprintf_s(retVal, retValLen, "%s\tUnicast Address[%u][%u]:%s\n", retVal, currAdapterIndex, currUnicastAddressIndex, myUnicastAddresses[currAdapterIndex][currUnicastAddressIndex]);
+			}
+		}
+
+		if (myNumWindowsServerAddresses[currAdapterIndex] > 0)
+		{
+			sprintf_s(retVal, retValLen, "%sNumber of Windows Server Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumWindowsServerAddresses[currAdapterIndex]);
+			for (unsigned int currWinServerAddressIndex = 0; currWinServerAddressIndex < myNumWindowsServerAddresses[currAdapterIndex]; currWinServerAddressIndex++)
+			{
+				sprintf_s(retVal, retValLen, "%sWindows Server Address[%u][%u]:%s\n", retVal, currAdapterIndex, currWinServerAddressIndex, myWindowsServerAddresses[currAdapterIndex][currWinServerAddressIndex]);
+			}
+		}
+
+		if (myZoneIndexes[currAdapterIndex] > 0)
+		{
+			for (unsigned int currZoneIndex = 0; currZoneIndex < 16; currZoneIndex++)
+			{
+				sprintf_s(retVal, retValLen, "%sZone Indexes[%u][%u]:%ul\n", retVal, currAdapterIndex, currZoneIndex, myZoneIndexes[currAdapterIndex][currZoneIndex]);
+			}
+		}
+	}
+
+	return retVal;
+}
+
 
 const char* WindowsNetworkInfo::GetIfTypeString(unsigned long ifType)
 {
@@ -1376,7 +2006,7 @@ const char* WindowsNetworkInfo::GetIfTypeString(unsigned long ifType)
 		}
 		else if (ifType == 88)
 		{
-			return "IF_TYPE_ARAP (Appletalk Remote Access Protocol)";
+			return "IF_TYPE_ARAP (AppleTalk Remote Access Protocol)";
 		}
 		else if (ifType == 89)
 		{
@@ -1392,7 +2022,7 @@ const char* WindowsNetworkInfo::GetIfTypeString(unsigned long ifType)
 		}
 		else if (ifType == 92)
 		{
-			return "IF_TYPE_FRAMERELAY_MPI (Multiproto Interconnect over FR)";
+			return "IF_TYPE_FRAMERELAY_MPI (Multiprotocol Interconnect over FR)";
 		}
 		else if (ifType == 93)
 		{
@@ -1491,7 +2121,7 @@ const char* WindowsNetworkInfo::GetIfTypeString(unsigned long ifType)
 		}
 		else if (ifType == 116)
 		{
-			return "IF_TYPE_TDLC (IBM twinaxial data link control)";
+			return "IF_TYPE_TDLC (IBM Twinaxial data link control)";
 		}
 		else if (ifType == 117)
 		{
@@ -1587,7 +2217,7 @@ const char* WindowsNetworkInfo::GetIfTypeString(unsigned long ifType)
 		}
 		else if (ifType == 140)
 		{
-			return "IF_TYPE_DTM (Dynamic syncronous Transfer Mode)";
+			return "IF_TYPE_DTM (Dynamic synchronous Transfer Mode)";
 		}
 		else if (ifType == 141)
 		{
@@ -1836,231 +2466,6 @@ const char* WindowsNetworkInfo::GetIfTypeString(unsigned long ifType)
 	return "MAX_IF_TYPE";
 }
 
-
-char* WindowsNetworkInfo::GetInfo()
-{
-	size_t retValLen = 2 << 15;
-	char* retVal = (char*)calloc(retValLen, sizeof(char));
-
-	sprintf_s(retVal, retValLen, "Number of Adapters:%u\n", myNumAdapters);
-	 
-	for (unsigned int currAdapterIndex = 0; currAdapterIndex < myNumAdapters; currAdapterIndex++)
-	{
-		sprintf_s(retVal, retValLen, "%s\n", retVal);
-
-		if (myAdapterNames[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sAdapterName[%u]:%s\n", retVal, currAdapterIndex, myAdapterNames[currAdapterIndex]);
-		}
-		
-		if (myNumAdapterPrefixAddresses[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%s\tNumber of Adapter Prefix Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumAdapterPrefixAddresses[currAdapterIndex]);
-			for (unsigned int currAdapterPrefixIndex = 0; currAdapterPrefixIndex < myNumAdapterPrefixAddresses[currAdapterIndex]; currAdapterPrefixIndex++)
-			{
-				sprintf_s(retVal, retValLen, "%s\tAdapter Prefix Address[%u][%u]:%s\n", retVal, currAdapterIndex, currAdapterPrefixIndex, myAdapterPrefixAddresses[currAdapterIndex][currAdapterPrefixIndex]);
-			}
-		}
-
-		if (myNumAnycastAddresses[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%s\tNumber of Anycast Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumAnycastAddresses[currAdapterIndex]);
-			for (unsigned int currAnycastAddressIndex = 0; currAnycastAddressIndex < myNumAnycastAddresses[currAdapterIndex]; currAnycastAddressIndex++)
-			{
-				sprintf_s(retVal, retValLen, "%s\tAdapter Anycast Addresses[%u][%u]:%s\n", retVal, currAdapterIndex, currAnycastAddressIndex, myAnycastAddresses[currAdapterIndex][currAnycastAddressIndex]);
-			}
-		}
-
-		if (myConnectionTypes[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sConnection Type[%u]:%s\n", retVal, currAdapterIndex, myConnectionTypes[currAdapterIndex]);
-		}
-
-		if (myCompartmentTypes[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sCompartment Type[%u]:%s\n", retVal, currAdapterIndex, myCompartmentTypes[currAdapterIndex]);
-		}
-
-		if (myDescriptions[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sDescriptions Type[%u]:%wS\n", retVal, currAdapterIndex, myDescriptions[currAdapterIndex]);
-		}
-
-		if (myDHCPV4Servers[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sDHCPV4 Servers [%u]:%s\n", retVal, currAdapterIndex, myDHCPV4Servers[currAdapterIndex]);
-		}
-
-		if (myDHCPV6Servers[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sDHCPV6 Servers [%u]:%s\n", retVal, currAdapterIndex, myDHCPV6Servers[currAdapterIndex]);
-		}
-
-		if (myDHCPV6ClientDUIDs[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sDHCPV6 Client DUID [%u]:%s\n", retVal, currAdapterIndex, myDHCPV6ClientDUIDs[currAdapterIndex]);
-		}
-
-		if (myDHCPV6Iads[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sDHCPV6 Iads [%u]:%ul\n", retVal, currAdapterIndex, myDHCPV6Iads[currAdapterIndex]);
-		}
-
-		if (myNumDNSServerAddresses[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%s\tNumber of DNS Server Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumDNSServerAddresses[currAdapterIndex]);
-			for (unsigned int currDNSServerAddressIndex = 0; currDNSServerAddressIndex < myNumDNSServerAddresses[currAdapterIndex]; currDNSServerAddressIndex++)
-			{
-				sprintf_s(retVal, retValLen, "%s\tDNS Server Addresses[%u][%u]:%s\n", retVal, currAdapterIndex, currDNSServerAddressIndex, myDNSServerAddresses[currAdapterIndex][currDNSServerAddressIndex]);
-			}
-		}
-
-		if (myNumDNSSuffixes[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%s\tNumber of DNS Suffixes[%u]:%u\n", retVal, currAdapterIndex, myNumDNSSuffixes[currAdapterIndex]);
-			for (unsigned int currDNSSuffixIndex = 0; currDNSSuffixIndex < myNumDNSSuffixes[currAdapterIndex]; currDNSSuffixIndex++)
-			{
-				sprintf_s(retVal, retValLen, "%s\tDNS Suffixes[%u][%u]:%wS\n", retVal, currAdapterIndex, currDNSSuffixIndex, myDNSSuffixes[currAdapterIndex][currDNSSuffixIndex]);
-			}
-		}
-
-		if (myFlags[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sFlag[%u]:%s\n", retVal, currAdapterIndex, myFlags[currAdapterIndex]);
-		}
-		
-		if (myFriendlyNames[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sFriendly Name[%u]:%wS\n", retVal, currAdapterIndex, myFriendlyNames[currAdapterIndex]);
-		}
-
-		if (myIfTypes[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sIf Type[%u]:%s\n", retVal, currAdapterIndex, myIfTypes[currAdapterIndex]);
-		}
-
-		if (myIPV4IfIndexes[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sIPV4 If Index[%u]:%ul\n", retVal, currAdapterIndex, myIPV4IfIndexes[currAdapterIndex]);
-		}
-		
-		if (myIPV6IfIndexes[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sIPV6 If Index[%u]:%ul\n", retVal, currAdapterIndex, myIPV6IfIndexes[currAdapterIndex]);
-		}
-
-		if (myIPV4Metrics[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sIPV4 Metrics[%u]:%ul\n", retVal, currAdapterIndex, myIPV4Metrics[currAdapterIndex]);
-		}
-
-		if (myIPV6Metrics[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sIPV6 Metrics[%u]:%ul\n", retVal, currAdapterIndex, myIPV6Metrics[currAdapterIndex]);
-		}
-
-		if (myNumGatewayAddresses[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%s\tNumber of Gateway Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumGatewayAddresses[currAdapterIndex]);
-			for (unsigned int currGatewayAddressIndex = 0; currGatewayAddressIndex < myNumGatewayAddresses[currAdapterIndex]; currGatewayAddressIndex++)
-			{
-				sprintf_s(retVal, retValLen, "%s\tGateway Address[%u][%u]:%s\n", retVal, currAdapterIndex, currGatewayAddressIndex, myGatewayAddresses[currAdapterIndex][currGatewayAddressIndex]);
-			}
-		}
-
-		if (myLUIDs[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%sLUID[%u]:%I64u\n", retVal, currAdapterIndex, myLUIDs[currAdapterIndex]);
-		}
-
-		if (myLUIDIfTypes[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sLUID If Type[%u]:%s\n", retVal, currAdapterIndex, myLUIDIfTypes[currAdapterIndex]);
-		}
-
-		if (myLUIDNetIndexes[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%sLUID Net Index[%u]:%I64u\n", retVal, currAdapterIndex, myLUIDNetIndexes[currAdapterIndex]);
-		}
-
-		if (myMTUs[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sMTU[%u]:%ul\n", retVal, currAdapterIndex, myMTUs[currAdapterIndex]);
-		}
-
-		if (myNumMulticastAddresses[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%s\tNumber of Multicast Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumMulticastAddresses[currAdapterIndex]);
-			for (unsigned int currMulticastAddressIndex = 0; currMulticastAddressIndex < myNumMulticastAddresses[currAdapterIndex]; currMulticastAddressIndex++)
-			{
-				sprintf_s(retVal, retValLen, "%s\tMulticast Address[%u][%u]:%s\n", retVal, currAdapterIndex, currMulticastAddressIndex, myMulticastAddresses[currAdapterIndex][currMulticastAddressIndex]);
-			}
-		}
-
-		if (myNetworkGUIDs[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sLUID If Type[%u]:%s\n", retVal, currAdapterIndex, myNetworkGUIDs[currAdapterIndex]);
-		}
-
-		if (myOperStatuses[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sOper Status[%u]:%s\n", retVal, currAdapterIndex, myOperStatuses[currAdapterIndex]);
-		}
-
-		if (myPhysicalAddresses[currAdapterIndex] != NULL)
-		{
-			for (unsigned int currByteIndex = 0; currByteIndex < 8; currByteIndex++)
-			{
-				sprintf_s(retVal, retValLen, "%s\tPhysical Address[%u][%u]:%s\n", retVal, currAdapterIndex, currByteIndex, myPhysicalAddresses[currAdapterIndex][currByteIndex]);
-			}
-		}
-
-		if (myReceiveLinkSpeeds[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%sReceive Link Speed[%u]:%I64u\n", retVal, currAdapterIndex, myReceiveLinkSpeeds[currAdapterIndex]);
-		}
-
-		if (myTransmitLinkSpeeds[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%sTransmit Link Speed[%u]:%I64u\n", retVal, currAdapterIndex, myTransmitLinkSpeeds[currAdapterIndex]);
-		}
-
-		if (myTunnelTypes[currAdapterIndex] != NULL)
-		{
-			sprintf_s(retVal, retValLen, "%sTunnel Type[%u]:%s\n", retVal, currAdapterIndex, myTunnelTypes[currAdapterIndex]);
-		}
-
-		if (myNumUnicastAddresses[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%s\tNumber of Unicast Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumUnicastAddresses[currAdapterIndex]);
-			for (unsigned int currUnicastAddressIndex = 0; currUnicastAddressIndex < myNumUnicastAddresses[currAdapterIndex]; currUnicastAddressIndex++)
-			{
-				sprintf_s(retVal, retValLen, "%s\tUnicast Address[%u][%u]:%s\n", retVal, currAdapterIndex, currUnicastAddressIndex, myUnicastAddresses[currAdapterIndex][currUnicastAddressIndex]);
-			}
-		}
-
-		if (myNumWindowsServerAddresses[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%s\tNumber of Windows Server Addresses[%u]:%u\n", retVal, currAdapterIndex, myNumWindowsServerAddresses[currAdapterIndex]);
-			for (unsigned int currWinServerAddressIndex = 0; currWinServerAddressIndex < myNumWindowsServerAddresses[currAdapterIndex]; currWinServerAddressIndex++)
-			{
-				sprintf_s(retVal, retValLen, "%s\tWindows Server Address[%u][%u]:%s\n", retVal, currAdapterIndex, currWinServerAddressIndex, myWindowsServerAddresses[currAdapterIndex][currWinServerAddressIndex]);
-			}
-		}
-
-		if (myNumZoneIndexes[currAdapterIndex] > 0)
-		{
-			sprintf_s(retVal, retValLen, "%s\tNumber of Zone Indexes[%u]:%u\n", retVal, currAdapterIndex, myNumZoneIndexes[currAdapterIndex]);
-			for (unsigned int currZoneIndex = 0; currZoneIndex < myNumZoneIndexes[currAdapterIndex]; currZoneIndex++)
-			{
-				sprintf_s(retVal, retValLen, "%s\tZone Indexes[%u][%u]:%ul\n", retVal, currAdapterIndex, currZoneIndex, myZoneIndexes[currAdapterIndex][currZoneIndex]);
-			}
-		}
-	}
-
-	return retVal;
-}
-
 bool WindowsNetworkInfo::WriteInfoToFile(const char* fileName)
 {
 	FILE* theFile;
@@ -2071,17 +2476,20 @@ bool WindowsNetworkInfo::WriteInfoToFile(const char* fileName)
 	if (fileName != NULL && strlen(fileName) > 0)
 	{
 		networkInfo = WindowsNetworkInfo::GetInfo();
-		networkInfoLen = strlen(networkInfo) + 1;
-
-		if (fopen_s(&theFile, fileName, "w+") == 0)
+		if (networkInfo != NULL)
 		{
-			fwrite(networkInfo, sizeof(*networkInfo), networkInfoLen, theFile);
+			networkInfoLen = strlen(networkInfo) + 1;
 
-			fclose(theFile);
+			if (fopen_s(&theFile, fileName, "w+") == 0)
+			{
+				fwrite(networkInfo, sizeof(*networkInfo), networkInfoLen, theFile);
+
+				fclose(theFile);
+			}
+
+			delete networkInfo;
+			retVal = true;
 		}
-		
-		delete networkInfo;
-		retVal = true;
 	}
 
 	return retVal;

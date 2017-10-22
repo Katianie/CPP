@@ -1,24 +1,32 @@
 Number of Adapters:8
-
+==========================
 AdapterName[0]:{12BEEAF8-CBCF-474A-BB4F-A9C773720238}
-	Number of Adapter Prefix Addresses[0]:5
-	Adapter Prefix Address[0][0]:fe80::
-	Adapter Prefix Address[0][1]:fe80::a5e1:f474:dfb6:aa2
-	Adapter Prefix Address[0][2]:ff00::
-	Adapter Prefix Address[0][3]:224.0.0.0
-	Adapter Prefix Address[0][4]:255.255.255.255
+Number of Adapter Prefix Addresses[0]:8
+Adapter Prefix Address[0][0]:fe80::
+Adapter Prefix Address[0][1]:fe80::a5e1:f474:dfb6:aa2
+Adapter Prefix Address[0][2]:ff00::
+Adapter Prefix Address[0][3]:10.10.40.0
+Adapter Prefix Address[0][4]:10.10.40.2
+Adapter Prefix Address[0][5]:10.10.40.63
+Adapter Prefix Address[0][6]:224.0.0.0
+Adapter Prefix Address[0][7]:255.255.255.255
 Connection Type[0]:Connection Dedicated.
 Compartment Type[0]:Compartment Primary.
 Descriptions Type[0]:TAP-Windows Adapter V9
-	Number of DNS Server Addresses[0]:2
-	DNS Server Addresses[0][0]:10.10.40.129
-	DNS Server Addresses[0][1]:80.67.14.78
+DHCPV4 Servers [0]:10.10.40.62
+DHCPV6 Client DUID [0]:
+DHCPV6 IADS [0]:302055186l
+Number of DNS Server Addresses[0]:2
+DNS Server Addresses[0][0]:10.10.40.1
+DNS Server Addresses[0][1]:80.67.14.78
 Flag[0]:
 IP_ADAPTER_DDNS_ENABLED
 IP_ADAPTER_DHCP_ENABLED
+IP_ADAPTER_IPV6_OTHER_STATEFUL_CONFIG
 IP_ADAPTER_NETBIOS_OVER_TCPIP_ENABLED
 IP_ADAPTER_IPV4_ENABLED
 IP_ADAPTER_IPV6_ENABLED
+IP_ADAPTER_IPV6_MANAGE_ADDRESS_CONFIG
 Friendly Name[0]:Local Area Connection 2
 If Type[0]:IF_TYPE_ETHERNET_CSMACD
 IPV4 If Index[0]:13l
@@ -29,76 +37,67 @@ LUID[0]:1688850011258880
 LUID If Type[0]:IF_TYPE_ETHERNET_CSMACD
 LUID Net Index[0]:9
 MTU[0]:1500l
-	Number of Multicast Addresses[0]:4
-	Multicast Address[0][0]:ff01::1
-	Multicast Address[0][1]:ff02::1
-	Multicast Address[0][2]:ff02::1:ffb6:aa2
-	Multicast Address[0][3]:224.0.0.1
+Number of Multicast Addresses[0]:10
+Multicast Address[0][0]:ff01::1
+Multicast Address[0][1]:ff02::1
+Multicast Address[0][2]:ff02::c
+Multicast Address[0][3]:ff02::fb
+Multicast Address[0][4]:ff02::1:3
+Multicast Address[0][5]:ff02::1:ffb6:aa2
+Multicast Address[0][6]:224.0.0.1
+Multicast Address[0][7]:224.0.0.251
+Multicast Address[0][8]:224.0.0.252
+Multicast Address[0][9]:239.255.255.250
 LUID If Type[0]:2221859649 28729 4574 ù Änonic
-Oper Status[0]:IfOperStatusDown
-	Physical Address[0][0]:0
-
-	Physical Address[0][1]:ff
-
-	Physical Address[0][2]:12
-
-	Physical Address[0][3]:be
-
-	Physical Address[0][4]:ea
-
-	Physical Address[0][5]:f8
-
-	Physical Address[0][6]:0
-
-	Physical Address[0][7]:0
+Oper Status[0]:IfOperStatusUp
+Physical Address[0]:321834
 
 Receive Link Speed[0]:100000000
 Transmit Link Speed[0]:100000000
 Tunnel Type[0]:TUNNEL_TYPE_NONE
 	Number of Unicast Addresses[0]:2
 	Unicast Address[0][0]:fe80::a5e1:f474:dfb6:aa2
-	Unicast Address[0][1]:169.254.10.162
-	Number of Zone Indexes[0]:16
-	Zone Indexes[0][0]:13l
-	Zone Indexes[0][1]:13l
-	Zone Indexes[0][2]:13l
-	Zone Indexes[0][3]:13l
-	Zone Indexes[0][4]:1l
-	Zone Indexes[0][5]:1l
-	Zone Indexes[0][6]:1l
-	Zone Indexes[0][7]:1l
-	Zone Indexes[0][8]:1l
-	Zone Indexes[0][9]:1l
-	Zone Indexes[0][10]:1l
-	Zone Indexes[0][11]:1l
-	Zone Indexes[0][12]:1l
-	Zone Indexes[0][13]:1l
-	Zone Indexes[0][14]:0l
-	Zone Indexes[0][15]:0l
-
+	Unicast Address[0][1]:10.10.40.2
+Zone Indexes[0][0]:13l
+Zone Indexes[0][1]:13l
+Zone Indexes[0][2]:13l
+Zone Indexes[0][3]:13l
+Zone Indexes[0][4]:1l
+Zone Indexes[0][5]:1l
+Zone Indexes[0][6]:1l
+Zone Indexes[0][7]:1l
+Zone Indexes[0][8]:1l
+Zone Indexes[0][9]:1l
+Zone Indexes[0][10]:1l
+Zone Indexes[0][11]:1l
+Zone Indexes[0][12]:1l
+Zone Indexes[0][13]:1l
+Zone Indexes[0][14]:0l
+Zone Indexes[0][15]:1l
+==========================
 AdapterName[1]:{A9517DBF-208C-46D4-8089-9A95899E9336}
-	Number of Adapter Prefix Addresses[1]:11
-	Adapter Prefix Address[1][0]:fd9a:3f11:d573::
-	Adapter Prefix Address[1][1]:fd9a:3f11:d573:0:daa:c90b:51e3:f9c8
-	Adapter Prefix Address[1][2]:fd9a:3f11:d573:0:894f:3817:56df:f4f5
-	Adapter Prefix Address[1][3]:fe80::
-	Adapter Prefix Address[1][4]:fe80::894f:3817:56df:f4f5
-	Adapter Prefix Address[1][5]:ff00::
-	Adapter Prefix Address[1][6]:192.168.1.0
-	Adapter Prefix Address[1][7]:192.168.1.105
-	Adapter Prefix Address[1][8]:192.168.1.255
-	Adapter Prefix Address[1][9]:224.0.0.0
-	Adapter Prefix Address[1][10]:255.255.255.255
+Number of Adapter Prefix Addresses[1]:11
+Adapter Prefix Address[1][0]:fd9a:3f11:d573::
+Adapter Prefix Address[1][1]:fd9a:3f11:d573:0:daa:c90b:51e3:f9c8
+Adapter Prefix Address[1][2]:fd9a:3f11:d573:0:894f:3817:56df:f4f5
+Adapter Prefix Address[1][3]:fe80::
+Adapter Prefix Address[1][4]:fe80::894f:3817:56df:f4f5
+Adapter Prefix Address[1][5]:ff00::
+Adapter Prefix Address[1][6]:192.168.1.0
+Adapter Prefix Address[1][7]:192.168.1.105
+Adapter Prefix Address[1][8]:192.168.1.255
+Adapter Prefix Address[1][9]:224.0.0.0
+Adapter Prefix Address[1][10]:255.255.255.255
 Connection Type[1]:Connection Dedicated.
 Compartment Type[1]:Compartment Primary.
 Descriptions Type[1]:Intel(R) Ethernet Connection (2) I219-V
-DHCPV4 Servers [1]:
+DHCPV4 Servers [1]:192.168.1.1
 DHCPV6 Client DUID [1]:
-DHCPV6 Iads [1]:239914090l
-	Number of DNS Server Addresses[1]:3
-	DNS Server Addresses[1][0]:167.206.13.180
-	DNS Server Addresses[1][1]:167.206.13.181
-	DNS Server Addresses[1][2]:192.168.1.1
+DHCPV6 IADS [1]:239914090l
+Number of DNS Server Addresses[1]:3
+DNS Server Addresses[1][0]:167.206.13.180
+DNS Server Addresses[1][1]:167.206.13.181
+DNS Server Addresses[1][2]:192.168.1.1
 Flag[1]:
 IP_ADAPTER_DDNS_ENABLED
 IP_ADAPTER_DHCP_ENABLED
@@ -116,36 +115,22 @@ LUID[1]:1688849960927232
 LUID If Type[1]:IF_TYPE_ETHERNET_CSMACD
 LUID Net Index[1]:6
 MTU[1]:1280l
-	Number of Multicast Addresses[1]:12
-	Multicast Address[1][0]:ff01::1
-	Multicast Address[1][1]:ff02::1
-	Multicast Address[1][2]:ff02::c
-	Multicast Address[1][3]:ff02::fb
-	Multicast Address[1][4]:ff02::1:3
-	Multicast Address[1][5]:ff02::1:ffdf:f4f5
-	Multicast Address[1][6]:ff02::1:ffe3:f9c8
-	Multicast Address[1][7]:224.0.0.1
-	Multicast Address[1][8]:224.0.0.251
-	Multicast Address[1][9]:224.0.0.252
-	Multicast Address[1][10]:239.255.255.250
-	Multicast Address[1][11]:239.255.255.253
+Number of Multicast Addresses[1]:12
+Multicast Address[1][0]:ff01::1
+Multicast Address[1][1]:ff02::1
+Multicast Address[1][2]:ff02::c
+Multicast Address[1][3]:ff02::fb
+Multicast Address[1][4]:ff02::1:3
+Multicast Address[1][5]:ff02::1:ffdf:f4f5
+Multicast Address[1][6]:ff02::1:ffe3:f9c8
+Multicast Address[1][7]:224.0.0.1
+Multicast Address[1][8]:224.0.0.251
+Multicast Address[1][9]:224.0.0.252
+Multicast Address[1][10]:239.255.255.250
+Multicast Address[1][11]:239.255.255.253
 LUID If Type[1]:2221859649 28729 4574 ù Änonic
 Oper Status[1]:IfOperStatusUp
-	Physical Address[1][0]:4c
-
-	Physical Address[1][1]:cc
-
-	Physical Address[1][2]:6a
-
-	Physical Address[1][3]:90
-
-	Physical Address[1][4]:85
-
-	Physical Address[1][5]:73
-
-	Physical Address[1][6]:0
-
-	Physical Address[1][7]:0
+Physical Address[1]:321e5c
 
 Receive Link Speed[1]:100000000
 Transmit Link Speed[1]:100000000
@@ -155,43 +140,42 @@ Tunnel Type[1]:TUNNEL_TYPE_NONE
 	Unicast Address[1][1]:fd9a:3f11:d573:0:daa:c90b:51e3:f9c8
 	Unicast Address[1][2]:fe80::894f:3817:56df:f4f5
 	Unicast Address[1][3]:192.168.1.105
-	Number of Zone Indexes[1]:16
-	Zone Indexes[1][0]:11l
-	Zone Indexes[1][1]:11l
-	Zone Indexes[1][2]:11l
-	Zone Indexes[1][3]:11l
-	Zone Indexes[1][4]:1l
-	Zone Indexes[1][5]:1l
-	Zone Indexes[1][6]:1l
-	Zone Indexes[1][7]:1l
-	Zone Indexes[1][8]:1l
-	Zone Indexes[1][9]:1l
-	Zone Indexes[1][10]:1l
-	Zone Indexes[1][11]:1l
-	Zone Indexes[1][12]:1l
-	Zone Indexes[1][13]:1l
-	Zone Indexes[1][14]:0l
-	Zone Indexes[1][15]:0l
-
+Zone Indexes[1][0]:11l
+Zone Indexes[1][1]:11l
+Zone Indexes[1][2]:11l
+Zone Indexes[1][3]:11l
+Zone Indexes[1][4]:1l
+Zone Indexes[1][5]:1l
+Zone Indexes[1][6]:1l
+Zone Indexes[1][7]:1l
+Zone Indexes[1][8]:1l
+Zone Indexes[1][9]:1l
+Zone Indexes[1][10]:1l
+Zone Indexes[1][11]:1l
+Zone Indexes[1][12]:1l
+Zone Indexes[1][13]:1l
+Zone Indexes[1][14]:0l
+Zone Indexes[1][15]:1l
+==========================
 AdapterName[2]:{16763684-82B8-4931-8756-B7DF4BA29250}
-	Number of Adapter Prefix Addresses[2]:8
-	Adapter Prefix Address[2][0]:fe80::
-	Adapter Prefix Address[2][1]:fe80::48cc:9750:87a0:9587
-	Adapter Prefix Address[2][2]:ff00::
-	Adapter Prefix Address[2][3]:192.168.56.0
-	Adapter Prefix Address[2][4]:192.168.56.1
-	Adapter Prefix Address[2][5]:192.168.56.255
-	Adapter Prefix Address[2][6]:224.0.0.0
-	Adapter Prefix Address[2][7]:255.255.255.255
+Number of Adapter Prefix Addresses[2]:8
+Adapter Prefix Address[2][0]:fe80::
+Adapter Prefix Address[2][1]:fe80::48cc:9750:87a0:9587
+Adapter Prefix Address[2][2]:ff00::
+Adapter Prefix Address[2][3]:192.168.56.0
+Adapter Prefix Address[2][4]:192.168.56.1
+Adapter Prefix Address[2][5]:192.168.56.255
+Adapter Prefix Address[2][6]:224.0.0.0
+Adapter Prefix Address[2][7]:255.255.255.255
 Connection Type[2]:Connection Dedicated.
 Compartment Type[2]:Compartment Primary.
 Descriptions Type[2]:VirtualBox Host-Only Ethernet Adapter
 DHCPV6 Client DUID [2]:
-DHCPV6 Iads [2]:386531367l
-	Number of DNS Server Addresses[2]:3
-	DNS Server Addresses[2][0]:fec0:0:0:ffff::1
-	DNS Server Addresses[2][1]:fec0:0:0:ffff::2
-	DNS Server Addresses[2][2]:fec0:0:0:ffff::3
+DHCPV6 IADS [2]:386531367l
+Number of DNS Server Addresses[2]:3
+DNS Server Addresses[2][0]:fec0:0:0:ffff::1
+DNS Server Addresses[2][1]:fec0:0:0:ffff::2
+DNS Server Addresses[2][2]:fec0:0:0:ffff::3
 Flag[2]:
 IP_ADAPTER_DDNS_ENABLED
 IP_ADAPTER_IPV6_OTHER_STATEFUL_CONFIG
@@ -209,35 +193,21 @@ LUID[2]:1688850061590528
 LUID If Type[2]:IF_TYPE_ETHERNET_CSMACD
 LUID Net Index[2]:12
 MTU[2]:1500l
-	Number of Multicast Addresses[2]:11
-	Multicast Address[2][0]:ff01::1
-	Multicast Address[2][1]:ff02::1
-	Multicast Address[2][2]:ff02::c
-	Multicast Address[2][3]:ff02::fb
-	Multicast Address[2][4]:ff02::1:3
-	Multicast Address[2][5]:ff02::1:ffa0:9587
-	Multicast Address[2][6]:224.0.0.1
-	Multicast Address[2][7]:224.0.0.251
-	Multicast Address[2][8]:224.0.0.252
-	Multicast Address[2][9]:238.255.255.250
-	Multicast Address[2][10]:239.255.255.250
+Number of Multicast Addresses[2]:11
+Multicast Address[2][0]:ff01::1
+Multicast Address[2][1]:ff02::1
+Multicast Address[2][2]:ff02::c
+Multicast Address[2][3]:ff02::fb
+Multicast Address[2][4]:ff02::1:3
+Multicast Address[2][5]:ff02::1:ffa0:9587
+Multicast Address[2][6]:224.0.0.1
+Multicast Address[2][7]:224.0.0.251
+Multicast Address[2][8]:224.0.0.252
+Multicast Address[2][9]:238.255.255.250
+Multicast Address[2][10]:239.255.255.250
 LUID If Type[2]:2221859649 28729 4574 ù Änonic
 Oper Status[2]:IfOperStatusUp
-	Physical Address[2][0]:a
-
-	Physical Address[2][1]:0
-
-	Physical Address[2][2]:27
-
-	Physical Address[2][3]:0
-
-	Physical Address[2][4]:0
-
-	Physical Address[2][5]:10
-
-	Physical Address[2][6]:0
-
-	Physical Address[2][7]:0
+Physical Address[2]:32265c
 
 Receive Link Speed[2]:1000000000
 Transmit Link Speed[2]:1000000000
@@ -245,40 +215,39 @@ Tunnel Type[2]:TUNNEL_TYPE_NONE
 	Number of Unicast Addresses[2]:2
 	Unicast Address[2][0]:fe80::48cc:9750:87a0:9587
 	Unicast Address[2][1]:192.168.56.1
-	Number of Zone Indexes[2]:16
-	Zone Indexes[2][0]:16l
-	Zone Indexes[2][1]:16l
-	Zone Indexes[2][2]:16l
-	Zone Indexes[2][3]:16l
-	Zone Indexes[2][4]:1l
-	Zone Indexes[2][5]:1l
-	Zone Indexes[2][6]:1l
-	Zone Indexes[2][7]:1l
-	Zone Indexes[2][8]:1l
-	Zone Indexes[2][9]:1l
-	Zone Indexes[2][10]:1l
-	Zone Indexes[2][11]:1l
-	Zone Indexes[2][12]:1l
-	Zone Indexes[2][13]:1l
-	Zone Indexes[2][14]:0l
-	Zone Indexes[2][15]:0l
-
+Zone Indexes[2][0]:16l
+Zone Indexes[2][1]:16l
+Zone Indexes[2][2]:16l
+Zone Indexes[2][3]:16l
+Zone Indexes[2][4]:1l
+Zone Indexes[2][5]:1l
+Zone Indexes[2][6]:1l
+Zone Indexes[2][7]:1l
+Zone Indexes[2][8]:1l
+Zone Indexes[2][9]:1l
+Zone Indexes[2][10]:1l
+Zone Indexes[2][11]:1l
+Zone Indexes[2][12]:1l
+Zone Indexes[2][13]:1l
+Zone Indexes[2][14]:0l
+Zone Indexes[2][15]:1l
+==========================
 AdapterName[3]:{846EE342-7039-11DE-9D20-806E6F6E6963}
-	Number of Adapter Prefix Addresses[3]:7
-	Adapter Prefix Address[3][0]:::1
-	Adapter Prefix Address[3][1]:ff00::
-	Adapter Prefix Address[3][2]:127.0.0.0
-	Adapter Prefix Address[3][3]:127.0.0.1
-	Adapter Prefix Address[3][4]:127.255.255.255
-	Adapter Prefix Address[3][5]:224.0.0.0
-	Adapter Prefix Address[3][6]:255.255.255.255
+Number of Adapter Prefix Addresses[3]:7
+Adapter Prefix Address[3][0]:::1
+Adapter Prefix Address[3][1]:ff00::
+Adapter Prefix Address[3][2]:127.0.0.0
+Adapter Prefix Address[3][3]:127.0.0.1
+Adapter Prefix Address[3][4]:127.255.255.255
+Adapter Prefix Address[3][5]:224.0.0.0
+Adapter Prefix Address[3][6]:255.255.255.255
 Connection Type[3]:Connection Dedicated.
 Compartment Type[3]:Compartment Primary.
 Descriptions Type[3]:Software Loopback Interface 1
-	Number of DNS Server Addresses[3]:3
-	DNS Server Addresses[3][0]:fec0:0:0:ffff::1
-	DNS Server Addresses[3][1]:fec0:0:0:ffff::2
-	DNS Server Addresses[3][2]:fec0:0:0:ffff::3
+Number of DNS Server Addresses[3]:3
+DNS Server Addresses[3][0]:fec0:0:0:ffff::1
+DNS Server Addresses[3][1]:fec0:0:0:ffff::2
+DNS Server Addresses[3][2]:fec0:0:0:ffff::3
 Flag[3]:
 IP_ADAPTER_DDNS_ENABLED
 IP_ADAPTER_IPV4_ENABLED
@@ -292,9 +261,9 @@ IPV6 Metrics[3]:50l
 LUID[3]:6755399441055744
 LUID If Type[3]:IF_TYPE_SOFTWARE_LOOPBACK
 MTU[3]:4294967295l
-	Number of Multicast Addresses[3]:2
-	Multicast Address[3][0]:ff02::c
-	Multicast Address[3][1]:239.255.255.250
+Number of Multicast Addresses[3]:2
+Multicast Address[3][0]:ff02::c
+Multicast Address[3][1]:239.255.255.250
 LUID If Type[3]:2221859649 28729 4574 ù Änonic
 Oper Status[3]:IfOperStatusUp
 Receive Link Speed[3]:1073741824
@@ -303,29 +272,34 @@ Tunnel Type[3]:TUNNEL_TYPE_NONE
 	Number of Unicast Addresses[3]:2
 	Unicast Address[3][0]:::1
 	Unicast Address[3][1]:127.0.0.1
-	Number of Zone Indexes[3]:16
-	Zone Indexes[3][0]:1l
-	Zone Indexes[3][1]:1l
-	Zone Indexes[3][2]:1l
-	Zone Indexes[3][3]:1l
-	Zone Indexes[3][4]:1l
-	Zone Indexes[3][5]:1l
-	Zone Indexes[3][6]:1l
-	Zone Indexes[3][7]:1l
-	Zone Indexes[3][8]:1l
-	Zone Indexes[3][9]:1l
-	Zone Indexes[3][10]:1l
-	Zone Indexes[3][11]:1l
-	Zone Indexes[3][12]:1l
-	Zone Indexes[3][13]:1l
-	Zone Indexes[3][14]:0l
-	Zone Indexes[3][15]:0l
-
+Zone Indexes[3][0]:1l
+Zone Indexes[3][1]:1l
+Zone Indexes[3][2]:1l
+Zone Indexes[3][3]:1l
+Zone Indexes[3][4]:1l
+Zone Indexes[3][5]:1l
+Zone Indexes[3][6]:1l
+Zone Indexes[3][7]:1l
+Zone Indexes[3][8]:1l
+Zone Indexes[3][9]:1l
+Zone Indexes[3][10]:1l
+Zone Indexes[3][11]:1l
+Zone Indexes[3][12]:1l
+Zone Indexes[3][13]:1l
+Zone Indexes[3][14]:0l
+Zone Indexes[3][15]:1l
+==========================
 AdapterName[4]:{D5518405-9023-4C46-B562-947292C1B431}
+Number of Adapter Prefix Addresses[4]:1
+Adapter Prefix Address[4][0]:fe80::5efe:10.10.40.2
 Connection Type[4]:Connection Dedicated.
 Compartment Type[4]:Compartment Primary.
 Descriptions Type[4]:Microsoft ISATAP Adapter
+Number of DNS Server Addresses[4]:2
+DNS Server Addresses[4][0]:10.10.40.1
+DNS Server Addresses[4][1]:80.67.14.78
 Flag[4]:
+IP_ADAPTER_DDNS_ENABLED
 IP_ADAPTER_NO_MULTICAST
 IP_ADAPTER_IPV6_ENABLED
 Friendly Name[4]:isatap.{12BEEAF8-CBCF-474A-BB4F-A9C773720238}
@@ -337,55 +311,44 @@ LUID[4]:36873222016204800
 LUID If Type[4]:IF_TYPE_TUNNEL (Encapsulation interface)
 LUID Net Index[4]:4
 MTU[4]:1280l
+Number of Multicast Addresses[4]:1
+Multicast Address[4][0]:ff02::1:ff0a:2802
 LUID If Type[4]:2221859649 28729 4574 ù Änonic
 Oper Status[4]:IfOperStatusDown
-	Physical Address[4][0]:0
-
-	Physical Address[4][1]:0
-
-	Physical Address[4][2]:0
-
-	Physical Address[4][3]:0
-
-	Physical Address[4][4]:0
-
-	Physical Address[4][5]:0
-
-	Physical Address[4][6]:0
-
-	Physical Address[4][7]:e0
+Physical Address[4]:3231dc
 
 Receive Link Speed[4]:100000
 Transmit Link Speed[4]:100000
 Tunnel Type[4]:TUNNEL_TYPE_ISATAP
-	Number of Zone Indexes[4]:16
-	Zone Indexes[4][0]:12l
-	Zone Indexes[4][1]:12l
-	Zone Indexes[4][2]:12l
-	Zone Indexes[4][3]:12l
-	Zone Indexes[4][4]:1l
-	Zone Indexes[4][5]:1l
-	Zone Indexes[4][6]:1l
-	Zone Indexes[4][7]:1l
-	Zone Indexes[4][8]:1l
-	Zone Indexes[4][9]:1l
-	Zone Indexes[4][10]:1l
-	Zone Indexes[4][11]:1l
-	Zone Indexes[4][12]:1l
-	Zone Indexes[4][13]:1l
-	Zone Indexes[4][14]:0l
-	Zone Indexes[4][15]:0l
-
+	Number of Unicast Addresses[4]:1
+	Unicast Address[4][0]:fe80::5efe:10.10.40.2
+Zone Indexes[4][0]:12l
+Zone Indexes[4][1]:12l
+Zone Indexes[4][2]:12l
+Zone Indexes[4][3]:12l
+Zone Indexes[4][4]:1l
+Zone Indexes[4][5]:1l
+Zone Indexes[4][6]:1l
+Zone Indexes[4][7]:1l
+Zone Indexes[4][8]:1l
+Zone Indexes[4][9]:1l
+Zone Indexes[4][10]:1l
+Zone Indexes[4][11]:1l
+Zone Indexes[4][12]:1l
+Zone Indexes[4][13]:1l
+Zone Indexes[4][14]:0l
+Zone Indexes[4][15]:1l
+==========================
 AdapterName[5]:{76FCF618-5588-4EC2-A2FD-BED44F6A853C}
-	Number of Adapter Prefix Addresses[5]:1
-	Adapter Prefix Address[5][0]:fe80::5efe:192.168.1.105
+Number of Adapter Prefix Addresses[5]:1
+Adapter Prefix Address[5][0]:fe80::5efe:192.168.1.105
 Connection Type[5]:Connection Dedicated.
 Compartment Type[5]:Compartment Primary.
 Descriptions Type[5]:Microsoft ISATAP Adapter #2
-	Number of DNS Server Addresses[5]:3
-	DNS Server Addresses[5][0]:167.206.13.180
-	DNS Server Addresses[5][1]:167.206.13.181
-	DNS Server Addresses[5][2]:192.168.1.1
+Number of DNS Server Addresses[5]:3
+DNS Server Addresses[5][0]:167.206.13.180
+DNS Server Addresses[5][1]:167.206.13.181
+DNS Server Addresses[5][2]:192.168.1.1
 Flag[5]:
 IP_ADAPTER_DDNS_ENABLED
 IP_ADAPTER_NO_MULTICAST
@@ -399,54 +362,39 @@ LUID[5]:36873222032982016
 LUID If Type[5]:IF_TYPE_TUNNEL (Encapsulation interface)
 LUID Net Index[5]:5
 MTU[5]:1280l
-	Number of Multicast Addresses[5]:1
-	Multicast Address[5][0]:ff02::1:ffa8:169
+Number of Multicast Addresses[5]:1
+Multicast Address[5][0]:ff02::1:ffa8:169
 LUID If Type[5]:2221859649 28729 4574 ù Änonic
 Oper Status[5]:IfOperStatusDown
-	Physical Address[5][0]:0
-
-	Physical Address[5][1]:0
-
-	Physical Address[5][2]:0
-
-	Physical Address[5][3]:0
-
-	Physical Address[5][4]:0
-
-	Physical Address[5][5]:0
-
-	Physical Address[5][6]:0
-
-	Physical Address[5][7]:e0
+Physical Address[5]:323510
 
 Receive Link Speed[5]:100000
 Transmit Link Speed[5]:100000
 Tunnel Type[5]:TUNNEL_TYPE_ISATAP
 	Number of Unicast Addresses[5]:1
 	Unicast Address[5][0]:fe80::5efe:192.168.1.105
-	Number of Zone Indexes[5]:16
-	Zone Indexes[5][0]:15l
-	Zone Indexes[5][1]:15l
-	Zone Indexes[5][2]:15l
-	Zone Indexes[5][3]:15l
-	Zone Indexes[5][4]:1l
-	Zone Indexes[5][5]:1l
-	Zone Indexes[5][6]:1l
-	Zone Indexes[5][7]:1l
-	Zone Indexes[5][8]:1l
-	Zone Indexes[5][9]:1l
-	Zone Indexes[5][10]:1l
-	Zone Indexes[5][11]:1l
-	Zone Indexes[5][12]:1l
-	Zone Indexes[5][13]:1l
-	Zone Indexes[5][14]:0l
-	Zone Indexes[5][15]:0l
-
+Zone Indexes[5][0]:15l
+Zone Indexes[5][1]:15l
+Zone Indexes[5][2]:15l
+Zone Indexes[5][3]:15l
+Zone Indexes[5][4]:1l
+Zone Indexes[5][5]:1l
+Zone Indexes[5][6]:1l
+Zone Indexes[5][7]:1l
+Zone Indexes[5][8]:1l
+Zone Indexes[5][9]:1l
+Zone Indexes[5][10]:1l
+Zone Indexes[5][11]:1l
+Zone Indexes[5][12]:1l
+Zone Indexes[5][13]:1l
+Zone Indexes[5][14]:0l
+Zone Indexes[5][15]:1l
+==========================
 AdapterName[6]:{47F9D0AE-0EB3-4495-9C3F-64B7822555F6}
-	Number of Adapter Prefix Addresses[6]:3
-	Adapter Prefix Address[6][0]:fe80::
-	Adapter Prefix Address[6][1]:fe80::100:7f:fffe
-	Adapter Prefix Address[6][2]:ff00::
+Number of Adapter Prefix Addresses[6]:3
+Adapter Prefix Address[6][0]:fe80::
+Adapter Prefix Address[6][1]:fe80::100:7f:fffe
+Adapter Prefix Address[6][2]:ff00::
 Connection Type[6]:Connection Dedicated.
 Compartment Type[6]:Compartment Primary.
 Descriptions Type[6]:Teredo Tunneling Pseudo-Interface
@@ -462,61 +410,46 @@ LUID[6]:36873222049759232
 LUID If Type[6]:IF_TYPE_TUNNEL (Encapsulation interface)
 LUID Net Index[6]:6
 MTU[6]:1280l
-	Number of Multicast Addresses[6]:3
-	Multicast Address[6][0]:ff01::1
-	Multicast Address[6][1]:ff02::1
-	Multicast Address[6][2]:ff02::1:ff7f:fffe
+Number of Multicast Addresses[6]:3
+Multicast Address[6][0]:ff01::1
+Multicast Address[6][1]:ff02::1
+Multicast Address[6][2]:ff02::1:ff7f:fffe
 LUID If Type[6]:2221859649 28729 4574 ù Änonic
 Oper Status[6]:IfOperStatusDown
-	Physical Address[6][0]:0
-
-	Physical Address[6][1]:0
-
-	Physical Address[6][2]:0
-
-	Physical Address[6][3]:0
-
-	Physical Address[6][4]:0
-
-	Physical Address[6][5]:0
-
-	Physical Address[6][6]:0
-
-	Physical Address[6][7]:e0
+Physical Address[6]:323874
 
 Receive Link Speed[6]:100000
 Transmit Link Speed[6]:100000
 Tunnel Type[6]:TUNNEL_TYPE_TEREDO
 	Number of Unicast Addresses[6]:1
 	Unicast Address[6][0]:fe80::100:7f:fffe
-	Number of Zone Indexes[6]:16
-	Zone Indexes[6][0]:14l
-	Zone Indexes[6][1]:14l
-	Zone Indexes[6][2]:14l
-	Zone Indexes[6][3]:14l
-	Zone Indexes[6][4]:1l
-	Zone Indexes[6][5]:1l
-	Zone Indexes[6][6]:1l
-	Zone Indexes[6][7]:1l
-	Zone Indexes[6][8]:1l
-	Zone Indexes[6][9]:1l
-	Zone Indexes[6][10]:1l
-	Zone Indexes[6][11]:1l
-	Zone Indexes[6][12]:1l
-	Zone Indexes[6][13]:1l
-	Zone Indexes[6][14]:0l
-	Zone Indexes[6][15]:0l
-
+Zone Indexes[6][0]:14l
+Zone Indexes[6][1]:14l
+Zone Indexes[6][2]:14l
+Zone Indexes[6][3]:14l
+Zone Indexes[6][4]:1l
+Zone Indexes[6][5]:1l
+Zone Indexes[6][6]:1l
+Zone Indexes[6][7]:1l
+Zone Indexes[6][8]:1l
+Zone Indexes[6][9]:1l
+Zone Indexes[6][10]:1l
+Zone Indexes[6][11]:1l
+Zone Indexes[6][12]:1l
+Zone Indexes[6][13]:1l
+Zone Indexes[6][14]:0l
+Zone Indexes[6][15]:1l
+==========================
 AdapterName[7]:{D775A9B9-4210-49E8-B05B-74147F2FBF96}
-	Number of Adapter Prefix Addresses[7]:1
-	Adapter Prefix Address[7][0]:fe80::5efe:192.168.56.1
+Number of Adapter Prefix Addresses[7]:1
+Adapter Prefix Address[7][0]:fe80::5efe:192.168.56.1
 Connection Type[7]:Connection Dedicated.
 Compartment Type[7]:Compartment Primary.
 Descriptions Type[7]:Microsoft ISATAP Adapter #3
-	Number of DNS Server Addresses[7]:3
-	DNS Server Addresses[7][0]:fec0:0:0:ffff::1
-	DNS Server Addresses[7][1]:fec0:0:0:ffff::2
-	DNS Server Addresses[7][2]:fec0:0:0:ffff::3
+Number of DNS Server Addresses[7]:3
+DNS Server Addresses[7][0]:fec0:0:0:ffff::1
+DNS Server Addresses[7][1]:fec0:0:0:ffff::2
+DNS Server Addresses[7][2]:fec0:0:0:ffff::3
 Flag[7]:
 IP_ADAPTER_DDNS_ENABLED
 IP_ADAPTER_NO_MULTICAST
@@ -530,46 +463,31 @@ LUID[7]:36873222066536448
 LUID If Type[7]:IF_TYPE_TUNNEL (Encapsulation interface)
 LUID Net Index[7]:7
 MTU[7]:1280l
-	Number of Multicast Addresses[7]:1
-	Multicast Address[7][0]:ff02::1:ffa8:3801
+Number of Multicast Addresses[7]:1
+Multicast Address[7][0]:ff02::1:ffa8:3801
 LUID If Type[7]:2221859649 28729 4574 ù Änonic
 Oper Status[7]:IfOperStatusDown
-	Physical Address[7][0]:0
-
-	Physical Address[7][1]:0
-
-	Physical Address[7][2]:0
-
-	Physical Address[7][3]:0
-
-	Physical Address[7][4]:0
-
-	Physical Address[7][5]:0
-
-	Physical Address[7][6]:0
-
-	Physical Address[7][7]:e0
+Physical Address[7]:323c24
 
 Receive Link Speed[7]:100000
 Transmit Link Speed[7]:100000
 Tunnel Type[7]:TUNNEL_TYPE_ISATAP
 	Number of Unicast Addresses[7]:1
 	Unicast Address[7][0]:fe80::5efe:192.168.56.1
-	Number of Zone Indexes[7]:16
-	Zone Indexes[7][0]:17l
-	Zone Indexes[7][1]:17l
-	Zone Indexes[7][2]:17l
-	Zone Indexes[7][3]:17l
-	Zone Indexes[7][4]:1l
-	Zone Indexes[7][5]:1l
-	Zone Indexes[7][6]:1l
-	Zone Indexes[7][7]:1l
-	Zone Indexes[7][8]:1l
-	Zone Indexes[7][9]:1l
-	Zone Indexes[7][10]:1l
-	Zone Indexes[7][11]:1l
-	Zone Indexes[7][12]:1l
-	Zone Indexes[7][13]:1l
-	Zone Indexes[7][14]:0l
-	Zone Indexes[7][15]:0l
+Zone Indexes[7][0]:17l
+Zone Indexes[7][1]:17l
+Zone Indexes[7][2]:17l
+Zone Indexes[7][3]:17l
+Zone Indexes[7][4]:1l
+Zone Indexes[7][5]:1l
+Zone Indexes[7][6]:1l
+Zone Indexes[7][7]:1l
+Zone Indexes[7][8]:1l
+Zone Indexes[7][9]:1l
+Zone Indexes[7][10]:1l
+Zone Indexes[7][11]:1l
+Zone Indexes[7][12]:1l
+Zone Indexes[7][13]:1l
+Zone Indexes[7][14]:0l
+Zone Indexes[7][15]:1l
  

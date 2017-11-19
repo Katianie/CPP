@@ -25,7 +25,7 @@ int main()
 
 	if (networkInfo != NULL)
 	{
-		//cout << networkInfo->GetInfo() << endl;
+		cout << networkInfo->GetInfo() << endl;
 
 		networkInfo->WriteInfoToFile();
 
